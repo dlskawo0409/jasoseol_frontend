@@ -1,0 +1,563 @@
+
+.TopBar{
+    height: 30 px;
+    display:  flex;
+    flex-direction: row;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    border-style: solid;
+    border-top-width: 0px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 1px;
+    border-bottom-color: #E6E6E6;
+
+
+}
+.Items{
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding-left: 25px;
+
+}
+.BarLogo{
+    margin-top: 8px;
+    margin-bottom: 4px;
+
+}
+.line{
+    height: 20px;
+    margin-left: 15px;
+
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+    border-style: solid;
+    border-width: 0px;
+    border-left-width: 1px;
+    border-color: #E6E6E6;
+}
+.menu{
+    width:520px;
+    margin-top: 12px;
+    margin-left: 25px;
+}
+
+.clickedMenu{
+
+  color: #2E2E2E;
+  font-weight: bold;
+  height: 30px;
+
+  font-size: 15px;
+  font-weight: 900;
+
+  border-top-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-bottom-width: 3px;
+  border-bottom-style: solid;
+  border-color: #FF6813;
+  display: inline-block; /* 추가된 속성 */
+
+  margin-right:15px;
+}
+.linkNoDecoration{
+
+  width: 100px;
+
+  text-decoration: none; /* 밑줄 없애기 */
+  color: inherit; /* 링크 색상을 텍스트와 동일하게 설정 */
+  color : #A4A4A4;
+  font-weight: 900;
+  font-size: 15px;
+
+  margin-right:15px;
+  margin-top: 20px;
+
+}
+.linkNoDecoration:hover{
+
+  text-decoration: none; /* 밑줄 없애기 */
+  color: inherit; /* 링크 색상을 텍스트와 동일하게 설정 */
+  color : #2E2E2E;
+  font-weight: 900;
+  font-size: 15px;
+  margin-right:15px;
+}
+.bin{
+    width: 1600px;
+}
+
+.loginButton{
+
+    width : 100px;
+    height: 32px;
+    background: #F8ECE0;
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: #FF8000;
+    border-style: solid;
+
+    display : flex;
+    align-items : center;
+    justify-content : center;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #FF8000;
+
+    margin-top: 8px;
+    margin-right: 7px;
+}
+.loginButton:hover{
+    width : 100px;
+    height: 32px;
+    background: #F7BE81;
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: #FF8000;
+    border-style: solid;
+
+    display : flex;
+    align-items : center;
+    justify-content : center;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #FF8000;
+    margin-right: 7px;
+
+    cursor: pointer;
+}
+.serviceButton{
+    width : 75px;
+    height: 32px;
+    background: white;
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: #BDBDBD;
+    border-style: solid;
+
+    display : flex;
+    align-items : center;
+    justify-content : center;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #BDBDBD;
+
+    margin-top: 8px;
+}
+.serviceButton:hover{
+    background: #E6E6E6;
+    cursor: pointer;
+}
+.modalContent{
+    padding-top: 10px;
+}
+.modalTop{
+    display : flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.modalTitle {
+  font-size: 22px;
+  font-weight: 1000;
+
+}
+
+.buttons{
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    flex-wrap: nowrap;
+}
+.OAuth2Container{
+    margin-top: 30px;
+
+    display: flex;
+    justify-content: space-evenly;
+}
+.joinLogin{
+    height: 50px;
+
+  margin-top: 20px;
+  border-radius: 4px;
+  cursor: pointer;
+
+  border-style: solid;
+  border-width: 1px;
+  border-color: #E6E6E6;
+
+  text-align: center;
+  color: #A4A4A4;
+  font-size: 15px;
+  font-weight: 600;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.emailLoginContainer{
+    height: 250px;
+
+    margin-top: 25px;
+
+    border-style: solid;
+    border-top-width: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 1px;
+    border-color: #E6E6E6;
+
+
+}
+.emailText{
+    font-size: 15px;
+    font-weight: 550;
+    color: #6E6E6E;
+}
+.modalBottom{
+    margin-top:20px;
+}
+.inputContainer{
+    margin-top: 10px;
+    position: relative;
+}
+.input{
+    height: 45px;
+    width: 335px;
+
+    font-size: 17px;
+    color: #848484;
+    text-indent: 10px;
+
+    border-radius:5px;
+    border-width:1px;
+    border-color: #E6E6E6;
+
+}
+.input::placeholder{
+    font-size:15px;
+    font-weight: 500;
+
+}
+.input:focus{
+    outline-style: solid;
+    outline-color: black;
+    outline-width: thin;
+
+}
+.clearButton{
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer
+}
+.summitButton{
+    margin-top:10px;
+    height: 45px;
+
+    background: #F8ECE0;
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: #FF8000;
+    border-style: solid;
+
+    display : flex;
+    align-items : center;
+    justify-content : center;
+    font-size: 15px;
+    font-weight: 500;
+    color: #FF8000;
+
+    cursor:pointer;
+
+}
+.summitButton:hover{
+    background-color: #F5D0A9;
+}
+.findPassword{
+    margin-top: 15px;
+    font-size: 12px;
+    color: #848484;
+
+    display : flex;
+    align-items : center;
+    justify-content : center;
+
+    cursor: pointer;
+}
+.findPassword span:hover {
+  background: #E6E6E6;
+}
+.business{
+    margin-top: 15px;
+
+    display : flex;
+    align-items : center;
+    justify-content : center;
+}
+.businessLinkAndImage{
+
+    width: 160px;
+    display : flex;
+
+    font-size: 13px;
+    color: #848484;
+}
+.businessLinkAndImage:hover{
+    background: #E6E6E6;
+}
+.businessLink {
+  color: #848484; /* 기본 상태의 색상 */
+
+}
+.EmailJoinModal{
+    backgroundColor: white;
+    width: 340px;
+    height: 630px;
+    padding: 30px;
+    zIndex: 12;
+    borderRadius: 10px;
+    overflow-Y: scroll;
+    scrollbarWidth: none; /* Firefox를 위한 설정 */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+.EmailJoinModal::-webkit-scrollbar{
+    display: none;
+}
+.EmailJoinModalTop{
+    margin-top: 15px;
+    display:flex;
+    justify-content: space-between;
+}
+.EmailJoinModalTop span{
+    font-size: 23px;
+    font-weight: 600;
+}
+.emailJoinInputContainer{
+    margin-top: 30px;
+    margin-bottom: 50px;
+
+}
+.emailJoinInputContainer span{
+    font-size: 15px;
+    font-weight: 550;
+    color: #848484;
+}
+.emailInputContainer{
+    margin-top: 20px;
+    position: relative;
+}
+.invalidInput:focus{
+    outline-color:red;
+}
+.errorEmailText{
+    display: flex;
+    align-items: center;
+    padding-left : 10px;
+
+    margin-top: 10px;
+    height: 30px;
+    background: #F8ECE0;
+
+    font-size: 12px;
+    color: #585858
+}
+.errorPassWordText{
+    display: flex;
+    align-items: center;
+    padding-left : 10px;
+
+    margin-top: 10px;
+    height: 40px;
+    background: #F8ECE0;
+
+    font-size: 12px;
+    color: #585858
+}
+.joinLine{
+    border-style: solid;
+    border-width: 0px;
+    border-bottom-width: 1px;
+    border-color: #E6E6E6;
+}
+.agreeAllButton{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 20px;
+    padding-left :20px;
+    padding-right: 20px;
+    height: 50px;
+
+    border-style: solid;
+    border-width: 1px;
+    border-color: #BDBDBD;
+    border-radius: 50px;
+
+    font-size: 15px;
+    font-weight: 550;
+    color: #848484;
+}
+.agreeAllButton:hover{
+    background: #E6E6E6;
+}
+@keyframes slideDown {
+   from {
+     transform: translateY(-50%);
+     opacity: 0;
+   }
+   to {
+     transform: translateY(0);
+     opacity: 1;
+   }
+ }
+@keyframes slideUp {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-50%);
+    opacity: 0;
+  }
+}
+.modalEnter{
+    animation: slideDown 0.4s forwards;
+}
+.modalExit{
+  animation: slideUp 0.35s forwards;
+}
+.modalScreen {
+  /* 모달 컨텐츠 기본 스타일 */
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  /* 애니메이션 적용을 위한 초기 위치 설정 */
+}
+.term{
+    padding-left: 20px;
+    padding-top: 10px;
+    display:flex;
+    flex-direction: row;
+}
+.termBoldText{
+   color:#A4A4A4;
+   font-weight: 500;
+   font-size: 14px;
+
+   margin-right: 5px;
+}
+.termText{
+    color:#848484;
+    font-weight: 400;
+    font-size: 14px;
+
+    width: 238px;
+}
+.couponAnnouncement{
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-right: 20px;
+    margin-bottom: 30px;
+    padding:10px;
+
+    background: #F5EFFB;
+
+    display:flex;
+    flex-direction: row;
+
+    border-radius: 6px;
+}
+.icInfoPurple{
+    margin-bottom:10px;
+    margin-right: 5px;
+}
+.infoText{
+   color:#A4A4A4;
+   font-size: 11px;
+   font-weight: 300;
+
+   white-space: pre-wrap;
+
+}
+.emailSummitButtonContainer{
+    display:flex;
+    flex-direction: row;
+
+    margin-top: 10px;
+
+    padding-left: 5px;
+    padding-right: 5px;
+
+    height: 50px;
+
+
+}
+
+.whiteBin{
+    height:50px;
+}
+.ModalFoot{
+    position: fixed;
+    bottom: 0;
+    background: white;
+    width: 330px;
+    height: 90px;
+
+    border-style: solid;
+    border-color: #E6E6E6;
+
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 0px;
+}
+.smallWhiteBin{
+    width: 10px;
+}
+.goLoginModal{
+    width:155px;
+    background: white;
+
+    border:solid;
+    border-width: 0.15rem;
+    border-color: #E6E6E6;
+    border-radius: 6px;
+}
+.emailSummitButton{
+    width: 155px;
+    background: Gray;
+
+    border:solid;
+    border-top: 1rem;
+    border-left:0px;
+    border-right: 0px;
+
+    border-color: Gray;
+    border-radius: 6px;
+}
+.goLoginText{
+    padding-top: 10px;
+    padding-left: 60px;
+    font-size: 16px;
+    color: Gray;
+    font-weight: 900;
+
+    cursor:pointer;
+}
+.emailSummitText{
+    padding-top: 15px;
+    padding-left: 60px;
+    font-size: 16px;
+    color: White;
+    font-weight: 900;
+    cursor:pointer;
+}
+.errorGoLoginText{
+    margin-left: 50px;
+    text-decoration-line: underline;
+    cursor: pointer;
+}

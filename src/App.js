@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
+import { Page as Homepage } from './Homepage.js';
+import Recruit from './recruit.js';
+import ResumeList from './resume_list.js';
+import SpecCareerDescription from './spec_career_description.js';
+import Datalab from './datalab.js';
+import Career from './career.js';
+import Success from './Success.js';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+   const [hello, setHello] = useState('')
+
+    useEffect(() => {
+        axios.get('/api/hello')
+        .then(response => setHello(response.data))
+        .catch(error => console.log(error))
+    }, []);
+
+    return (
+
+        <Router>
+            <Routes>
+                <Route path="/" element={<Homepage />} />
+                <Route path="/recruit" element={<Recruit />} />
+                <Route path="/resume_list" element={<ResumeList />} />
+                <Route path="/spec_career_description" element={<SpecCareerDescription />} />
+                <Route path="/datalab" element={<Datalab />} />
+                <Route path="/career" element={<Career />} />
+                <Route path="/success" element={Success} />}>
+            </Routes>
+            <div>
+                백엔드에서 가져온 데이터입니다 : {hello}
+            </div>
+        </Router>
+
+    );
 }
+
+
 
 export default App;
