@@ -19,18 +19,20 @@ import React, { useState , useEffect  } from 'react';
 import { Link } from 'react-router-dom';
 
 
+
 function Page() {
+    const [login, setLogin]= useState(false);
 
     return (
         <div>
-            <TopBar selected="" login={false} />
+            <TopBar selected="" login={login} setLogin={setLogin} />
             <RotateSlide />
         </div>
     );
 }
 
 
-function TopBar({selected, login}){
+function TopBar({selected, login, setLogin}){
     const [isModalOpen, setModalOpen] = useState(false);
     const [modalMode, setModalMode] = useState(null);
     const [isClosing, setIsClosing] = useState(false);
@@ -69,7 +71,7 @@ function TopBar({selected, login}){
                     onClick={closeModal} // 오버레이 클릭 시 모달 닫기
                 >
                     <div className={`${styles.modalScreen} ${isClosing ? styles.modalExit : styles.modalEnter}`} onClick={(e) => e.stopPropagation()}>
-                        <OpenLoginModal onClose={closeModal}  modalMode={modalMode} setModalMode={setModalMode}/>
+                        <OpenLoginModal onClose={closeModal}  modalMode={modalMode} setModalMode={setModalMode} setLogin ={setLogin}/>
                     </div>
                 </div>
             )}
@@ -90,7 +92,7 @@ function TopBar({selected, login}){
                     </div>
                     <div className ={styles.bin}></div>
                     <div className ={styles.icons}>
-                        <MenuIcon login={login} setModalOpen={setModalOpen} />
+                        <MenuIcon login={login} setLogin={setLogin} setModalOpen={setModalOpen} />
                     </div>
                 </div>
             </nav>
@@ -151,7 +153,7 @@ function ChangeColorOnHover({ text , to , clicked }) { // props 객체 구조 �
   );
 }
 
-function MenuIcon({login, setModalOpen}){
+function MenuIcon({login, setLogin, setModalOpen}){
     const [isHover, setIsHover] = useState(false);
 
     if(login){
@@ -183,7 +185,7 @@ function MenuIcon({login, setModalOpen}){
     )
 }
 
-function OpenLoginModal({ onClose, modalMode, setModalMode }) {
+function OpenLoginModal({ onClose, modalMode, setModalMode, setLogin }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = React.useState("");
 
@@ -297,7 +299,7 @@ function OpenLoginModal({ onClose, modalMode, setModalMode }) {
                         </form>
                     </div>
                 </div>
-                <div className={`${styles.summitButton} ${isHover ? styles.summitButton : styles.summitButton}`} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
+                <div className={`${styles.summitButton} ${isHover ? styles.summitButton : styles.summitButton}`} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)} onClick={() => getLogin(email, password, setLogin)}>
                     로그인
                 </div>
                 <div className={`${styles.findPassword} ${isHover ? styles.findPassword : styles.findPassword}`} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
@@ -422,7 +424,7 @@ function EmailJoinModal({ onClose, setModalMode }){
 
             try {
                 const response = await fetch('http://localhost:8080/api/join', {
-                    method: 'POST', // 로그인은 보통 POST 요청을 사용
+                    method: 'POST', 
                     headers: {
                         'Content-Type': 'application/json',
                         // 추가적인 헤더가 필요한 경우 여기에 추가
@@ -440,18 +442,29 @@ function EmailJoinModal({ onClose, setModalMode }){
 
                 const responseData = await response.json(); // JSON 객체를 기다린 후 반환받음
                 const data = responseData.message;
-                const token = responseData.header.get('Authorization');
+                
 
                 console.log(data);
                 if(data === 'Join Success'){
-                    console.log('Join successful:', data);
+                    console.log('Join successful');
                 }
-                if (token) {
-                    // 로컬 스토리지에 토큰 저장
-                    localStorage.setItem('jwt', token);
-                    console.log(token);
-                    window.location.href = 'http://localhost:8080/success';
-                }
+
+                // try{
+                //     token = getLogin(email, password);
+                    
+                // }
+                // catch(error){
+                //     console.log("login fail");
+                // }
+
+                    
+
+                // if (token) {
+                //     // 로컬 스토리지에 토큰 저장
+                //     localStorage.setItem('jwt', token);
+                //     console.log(token);
+                //     window.location.href = 'http://localhost:8080/success';
+                // }
 
                 // 로그인 성공 후 처리 로직 추가 가능
             } catch (error) {
@@ -464,7 +477,7 @@ function EmailJoinModal({ onClose, setModalMode }){
         }
     }
 
-
+    
 
 
     return(
@@ -639,6 +652,34 @@ async function checkEmailExist(email) {
     console.error('Error:', error);
     return false; // 에러 처리, 실제 사용 시 필요에 따라 변경 가능
   }
+}
+
+async function getLogin(email, password, setLogin){
+    try{
+        const response = await fetch(`http://localhost:8080/login?username=${email}&password=${password}`,{
+            method: 'POST',
+            headers:{
+                type: "application / json",
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const token = await response.headers.get('Authorization');
+        if(token){{
+            localStorage.setItem('jwt', token);
+            // console.log(token); token 확인용
+            setLogin(true);
+            // console.log("login state: ");
+        }}
+
+
+    }
+    catch(error){
+        console.error('login fali Error: ', error);
+    }
 }
 
 

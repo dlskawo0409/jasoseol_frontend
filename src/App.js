@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import { Page as Homepage } from './Homepage.js';
 import Recruit from './recruit.js';
 import ResumeList from './resume_list.js';
@@ -10,13 +10,6 @@ import Success from './Success.js';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
-   const [hello, setHello] = useState('')
-
-    useEffect(() => {
-        axios.get('/api/hello')
-        .then(response => setHello(response.data))
-        .catch(error => console.log(error))
-    }, []);
 
     return (
 
@@ -28,11 +21,8 @@ function App() {
                 <Route path="/spec_career_description" element={<SpecCareerDescription />} />
                 <Route path="/datalab" element={<Datalab />} />
                 <Route path="/career" element={<Career />} />
-                <Route path="/success" element={Success} />}>
+                <Route path="/success" element={Success} />
             </Routes>
-            <div>
-                백엔드에서 가져온 데이터입니다 : {hello}
-            </div>
         </Router>
 
     );
@@ -41,3 +31,5 @@ function App() {
 
 
 export default App;
+
+
