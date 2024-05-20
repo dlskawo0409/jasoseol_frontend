@@ -13,26 +13,48 @@ import check from './Image/ic_check_blue.svg';
 import selected from './Image/ic_checkbox_rounded_selected.svg';
 import unselected from './Image/ic_checkbox_rounded_unselected.svg';
 import ic_info_purple from './Image/ic_info_purple.svg';
-
+import ExperienceForm from './ExperienceForm.js'
 import styles from './hompage.module.css';
 import React, { useState , useEffect  } from 'react';
 import { Link } from 'react-router-dom';
-
+import { useLocation } from 'react-router-dom';
 
 
 function Page() {
-    const [login, setLogin]= useState(false);
+    const location = useLocation();
+    const [login, setLogin] = useState(false);
+    const [career, setCareer] = useState(false);
+  
+    useEffect(() => {
+      if (location.state) {
+        if (location.state.login !== undefined) {
+          setLogin(location.state.login);
+        }
+        if (location.state.career !== undefined) {
+          setCareer(location.state.career);
+        }
+      }
+    }, [location.state]);
+  
+
+    if(login & career=== false){
+        <Link to={ExperienceForm}>
+        </Link>
+    }
 
     return (
         <div>
-            <TopBar selected="" login={login} setLogin={setLogin} />
+            <TopBar selected="" login={login} setLogin={setLogin} setCareer={setCareer}/>
             <RotateSlide />
         </div>
     );
 }
 
 
-function TopBar({selected, login, setLogin}){
+
+
+
+function TopBar({selected, login, setLogin, setCareer}){
     const [isModalOpen, setModalOpen] = useState(false);
     const [modalMode, setModalMode] = useState(null);
     const [isClosing, setIsClosing] = useState(false);
@@ -71,7 +93,7 @@ function TopBar({selected, login, setLogin}){
                     onClick={closeModal} // 오버레이 클릭 시 모달 닫기
                 >
                     <div className={`${styles.modalScreen} ${isClosing ? styles.modalExit : styles.modalEnter}`} onClick={(e) => e.stopPropagation()}>
-                        <OpenLoginModal onClose={closeModal}  modalMode={modalMode} setModalMode={setModalMode} setLogin ={setLogin}/>
+                        <OpenLoginModal onClose={closeModal}  modalMode={modalMode} setModalMode={setModalMode} setLogin={setLogin} setCareer={setCareer} />
                     </div>
                 </div>
             )}
@@ -185,7 +207,7 @@ function MenuIcon({login, setLogin, setModalOpen}){
     )
 }
 
-function OpenLoginModal({ onClose, modalMode, setModalMode, setLogin }) {
+function OpenLoginModal({ onClose, modalMode, setModalMode, setLogin, setCareer}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = React.useState("");
 
@@ -216,7 +238,7 @@ function OpenLoginModal({ onClose, modalMode, setModalMode, setLogin }) {
 
     if(modalMode === 'JoinEmail'){
         return(
-            <EmailJoinModal onClose={onClose} setModalMode={setModalMode}/>
+            <EmailJoinModal onClose={onClose} setModalMode={setModalMode} setLogin ={setLogin} setCareer={setCareer}/>
         )
     }
 
@@ -299,7 +321,7 @@ function OpenLoginModal({ onClose, modalMode, setModalMode, setLogin }) {
                         </form>
                     </div>
                 </div>
-                <div className={`${styles.summitButton} ${isHover ? styles.summitButton : styles.summitButton}`} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)} onClick={() => getLogin(email, password, setLogin)}>
+                <div className={`${styles.summitButton} ${isHover ? styles.summitButton : styles.summitButton}`} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)} onClick={() => getLogin(email, password, setLogin, setCareer)}>
                     로그인
                 </div>
                 <div className={`${styles.findPassword} ${isHover ? styles.findPassword : styles.findPassword}`} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
@@ -322,7 +344,7 @@ function OpenLoginModal({ onClose, modalMode, setModalMode, setLogin }) {
     );
 }
 
-function EmailJoinModal({ onClose, setModalMode }){
+function EmailJoinModal({ onClose, setModalMode, setLogin, setCareer }){
     const [email, setEmail] = useState('');
     const [password, setPassword] = React.useState("");
     const [passwordChk, setPasswordChk] = React.useState("");
@@ -449,13 +471,14 @@ function EmailJoinModal({ onClose, setModalMode }){
                     console.log('Join successful');
                 }
 
-                // try{
-                //     token = getLogin(email, password);
+            
+                try{
+                    const token = getLogin(email, password, setLogin, setCareer);
                     
-                // }
-                // catch(error){
-                //     console.log("login fail");
-                // }
+                }
+                catch(error){
+                    console.log("login fail");
+                }
 
                     
 
@@ -654,7 +677,7 @@ async function checkEmailExist(email) {
   }
 }
 
-async function getLogin(email, password, setLogin){
+async function getLogin(email, password, setLogin, setCareer){
     try{
         const response = await fetch(`http://localhost:8080/login?username=${email}&password=${password}`,{
             method: 'POST',
@@ -672,8 +695,44 @@ async function getLogin(email, password, setLogin){
             localStorage.setItem('jwt', token);
             // console.log(token); token 확인용
             setLogin(true);
+            const temp = await getCarrer(email);
+            console.log(temp);
+            if(temp == 0){
+                console.log("re");
+                // <Link to={"/ExperienceForm"}></Link>
+                window.location.href = `/ExperienceForm?email=${encodeURIComponent(email)}`; // email을 쿼리 매개 변수로 추가;
+            }
+            else{
+                setCareer(true);
+                <Link to={{pathname: "/", state: {login : true, career : true}}}></Link>
+            }
             // console.log("login state: ");
         }}
+
+
+    }
+    catch(error){
+        console.error('login fali Error: ', error);
+    }
+}
+
+async function getCarrer(email){
+    try{
+        const response = await fetch(`http://localhost:8080/api/check-career?email=${email}`,{
+            method: 'GET',
+            headers:{
+                type: "application / json",
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = (await response.json()).message;
+   
+        return data;
+    
 
 
     }

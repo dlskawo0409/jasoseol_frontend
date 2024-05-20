@@ -8,6 +8,7 @@ import Datalab from './datalab.js';
 import Career from './career.js';
 import Success from './Success.js';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ExperienceForm from './ExperienceForm.js';
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
                 <Route path="/datalab" element={<Datalab />} />
                 <Route path="/career" element={<Career />} />
                 <Route path="/success" element={Success} />
+                <Route path="/ExperienceForm" element={<ExperienceForm/>}/>
             </Routes>
         </Router>
 
