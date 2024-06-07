@@ -35,9 +35,9 @@ const ExperienceForm = () => {
             <button className="nav-button next-button">다음</button>
           </div>
         </div>
-        <div className='navigation-button-container'>
+        {/* <div className='navigation-button-container'>
 
-        </div>
+        </div> */}
 
       
     </div>
