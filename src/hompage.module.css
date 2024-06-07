@@ -222,6 +222,7 @@
 .inputContainer{
     margin-top: 10px;
     position: relative;
+
 }
 .input{
     height: 45px;
@@ -234,6 +235,7 @@
     border-radius:5px;
     border-width:1px;
     border-color: #E6E6E6;
+    
 
 }
 .input::placeholder{
