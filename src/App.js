@@ -23,7 +23,7 @@ function App() {
                 <Route path="/datalab" element={<Datalab />} />
                 <Route path="/career" element={<Career />} />
                 <Route path="/success" element={Success} />
-                <Route path="/ExperienceForm" element={<ExperienceForm/>}/>
+                <Route path="/experienceForm" element={<ExperienceForm/>}/>
             </Routes>
         </Router>
 
@@ -33,5 +33,3 @@ function App() {
 
 
 export default App;
-
-

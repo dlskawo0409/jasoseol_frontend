@@ -742,7 +742,7 @@ async function getCarrer(email){
 }
 
 
-function RotateSlide() {
+function RotateSlide() { //홈
     return (
         <div className={styles.slideContainer}>
             <div className={styles.slideShow}>

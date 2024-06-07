@@ -1,30 +1,64 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    margin: 0;
-    padding: 0;
-  }
-  
+
   .experience-form {
-    width: 50%;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    background-color: #f5f5f5;
+    
+    
   }
   
   .header {
+    height: 50px; /* px와 숫자 사이에 공백을 제거 */
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* align-items: stretch 대신 center 사용 */
+    flex-wrap: nowrap;
+    border-style: solid;
+    border-top-width: 0px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 1px;
+    border-bottom-color: #E6E6E6;
+    background-color: #fff;
+  }
+  
+  .header-content {
+    display: flex;
+    align-items: center;
+    width: 100%; /* 부모의 너비로 설정 */
+  }
+  
+  .BarLogo {
+    top: 8px;
+    left: 20px;
+    z-index: 2;
+    position: absolute;
+  }
+  
+  .header-info {
+    flex-grow: 1; /* 나머지 공간 차지 */
     text-align: left;
+    display: flex;
+    justify-content: center; /* 중앙 정렬 */
+    font-weight:bold;
   }
   
-  .header h1 {
-    font-size: 24px;
-    margin-bottom: 10px;
+  .main-container{
+    display: flex;
+    justify-content: center; /* 중앙 정렬 */
   }
-  
   .main-content {
     padding: 20px;
+    margin-top: 30px;
+    background-color: #ffffff;
+
+    width: 600px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   }
   
   .progress-bar {
@@ -32,30 +66,35 @@ body {
     width: 100%;
     background-color: #ffd700;
     border-radius: 2px;
-    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 30px;
   }
   
   .section-title {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
+
   }
   
   .instruction {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
   }
   
   .options {
     display: flex;
     flex-direction: column;
+  
   }
   
   .option-button {
     background-color: #fff;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
+    border-radius: 50px;
+    padding: 15px;
     font-size: 16px;
+    font-weight: 600;
+    
     text-align: left;
     margin-bottom: 10px;
     cursor: pointer;
@@ -80,10 +119,15 @@ body {
     content: "🔔";
   }
   
-  .navigation-buttons {
-    display: flex;
-    justify-content: space-between;
+  .navigation-button-container{
+    width: 100%;
     margin-top: 20px;
+    display: flex;
+    justify-content: center; /* 중앙 정렬 */
+  }
+  
+  .navigation-buttons {
+    width: 600px;
   }
   
   .nav-button {
