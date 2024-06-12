@@ -1,0 +1,178 @@
+.TopBar{
+    height: 30 px;
+    display:  flex;
+    flex-direction: row;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    border-style: solid;
+    border-top-width: 0px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 1px;
+    border-bottom-color: #E6E6E6;
+
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #FFFFFF;
+    z-index: 1000;
+}
+
+.Items{
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding-left: 25px;
+
+}
+.BarLogo{
+    margin-top: 8px;
+    margin-bottom: 4px;
+
+}
+.line{
+    height: 20px;
+    margin-left: 15px;
+
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+    border-style: solid;
+    border-width: 0px;
+    border-left-width: 1px;
+    border-color: #E6E6E6;
+}
+
+.menu{
+    width:530px;
+    margin-top: 12px;
+    margin-left: 25px;
+
+}
+
+.clickedMenu{ /*위에 버튼 누르면 아래 보이는 언더바*/
+
+  color: #2E2E2E;
+  font-weight: bold;
+  height: 30px;
+
+  font-size: 15px;
+  font-weight: 900;
+
+  border-top-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-bottom-width: 3px;
+  border-bottom-style: solid;
+  border-color: #FF6813;
+  display: inline-block; /* 추가된 속성 */
+
+  margin-right:15px;
+}
+.linkNoDecoration{
+
+    width: 100px;
+    text-decoration: none; /* 밑줄 없애기 */
+    color: inherit; /* 링크 색상을 텍스트와 동일하게 설정 */
+    color : #A4A4A4;
+    font-weight: 900;
+    font-size: 15px;
+  
+    margin-right:15px;
+    margin-top: 20px;
+  
+  }
+.linkNoDecoration:hover{
+  
+    text-decoration: none; /* 밑줄 없애기 */
+    color: inherit; /* 링크 색상을 텍스트와 동일하게 설정 */
+    color : #2E2E2E;
+    font-weight: 900;
+    font-size: 15px;
+    margin-right:15px;
+}
+.bin{
+    width: 1600px;
+}
+.loginButton{
+
+    width : 50px;
+    height: 32px;
+    background: #F8ECE0;
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: #FF8000;
+    border-style: solid;
+
+    display : flex;
+    align-items : center;
+    justify-content : center;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #FF8000;
+
+    margin-top: 8px;
+    margin-right: 7px;
+}
+.loginButton:hover{
+    width : 50px;
+    height: 32px;
+    background: #F7BE81;
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: #FF8000;
+    border-style: solid;
+
+    display : flex;
+    align-items : center;
+    justify-content : center;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #FF8000;
+    margin-right: 7px;
+
+    cursor: pointer;
+}
+.serviceButton{
+    width : 60px;
+    height: 32px;
+    background: white;
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: #BDBDBD;
+    border-style: solid;
+
+    display : flex;
+    align-items : center;
+    justify-content : center;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #BDBDBD;
+
+    margin-top: 8px;
+}
+.serviceButton:hover{
+    background: #E6E6E6;
+    cursor: pointer;
+}
+
+.colorMenu{
+    width: 100px;
+    text-decoration: none; /* 밑줄 없애기 */
+    color: inherit; /* 링크 색상을 텍스트와 동일하게 설정 */
+    color : #FF6813;
+    font-weight: 900;
+    font-size: 15px;
+  
+    margin-right:15px;
+    margin-top: 20px;
+}
+.buttons{
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    flex-wrap: nowrap;
+}
+.rightBin{
+    width: 20px;
+}

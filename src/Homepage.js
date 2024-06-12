@@ -548,7 +548,7 @@ function EmailJoinModal({ onClose, setModalMode, setLogin, setCareer }){
            <div className={styles.emailJoinInputContainer} >
                 <span>비밀번호</span>
                 {isValidPassword && <img src={check} alt="check" style={{marginLeft:'5px'}}/>}
-                    <div className={styles.emailInputContainer}>
+                    ontain<div className={styles.emailInputCer}>
                         <form  onSubmit={handleSubmit}>
                             <label>
                                 <input type="password" value={password}
@@ -697,7 +697,7 @@ async function getLogin(email, password, setLogin, setCareer){
             setLogin(true);
             const temp = await getCarrer(email);
             console.log(temp);
-            if(temp == 0){
+            if(temp === 0){
                 console.log("re");
                 // <Link to={"/ExperienceForm"}></Link>
                 window.location.href = `/ExperienceForm?email=${encodeURIComponent(email)}`; // email을 쿼리 매개 변수로 추가;

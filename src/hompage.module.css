@@ -11,8 +11,6 @@
     border-right-width: 0px;
     border-bottom-width: 1px;
     border-bottom-color: #E6E6E6;
-
-
 }
 .Items{
     display: inline-flex;
@@ -229,7 +227,7 @@
     width: 335px;
 
     font-size: 17px;
-    color: #cac9c9; /*입력하는 텍스트 색*/
+    color: #2E2E2E; /*입력하는 텍스트 색*/
     text-indent: 10px;
 
     border-radius:5px;
@@ -245,7 +243,7 @@
 
 }
 .input:focus{ /*커서 깜박일 때 주변 표시*/
-    outline-style: solid;
+    outline-style: none;
     outline-color: black;
     outline-width: thin;
 
@@ -303,7 +301,7 @@
 }
 .businessLinkAndImage{
 
-    width: 160px;
+    width: 170px;
     display : flex;
 
     font-size: 13px;

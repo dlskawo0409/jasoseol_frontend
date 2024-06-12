@@ -1,0 +1,463 @@
+.mainContainer{
+    width: 100%;
+    padding-top: 50px;
+    background-color: #f0f0f0;
+}
+.container {
+    width: 343px;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+
+.title {
+    width: 100%;
+    color: #FF6813;
+    font-size: 17px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    padding-bottom: 13px;
+    padding-right: 15px;
+
+    border-style: solid;
+    border-width: 0 0 0.025rem 0;
+
+    border-color: #DDDDDD;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.formGroup {
+    margin-bottom: 25px;
+}
+
+.label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 14px;
+    color:#888
+}
+
+.input {
+    width: 100%;
+    height: 30px;
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 0px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 4px;
+    font-size: 15px;
+    color: #868686;
+}
+input:focus {
+    border-color: #000; /* 포커스가 맞춰졌을 때 테두리 색상 변경 */
+    outline: none; /* 기본 포커스 아웃라인 제거 */
+}
+input::placeholder{
+    color: #DDDDDD;
+}
+.invalidInput{
+    border: 1px solid red;
+}
+.invalidInput:focus{
+    border: 1px solid red;
+}
+.clearButton{
+    position: absolute;
+    top: 50%;
+    right: 0px;
+    transform: translateY(-50%);
+    cursor: pointer
+}
+.reClearButton{
+    position: relative;
+    top: 50%;
+    right: 0px;
+    transform: translateY(-50%);
+    cursor: pointer
+}
+.inputWithTooltip {
+    position: relative;
+}
+
+.tooltip {
+    width: 200px;
+    position: absolute;
+    top: 0px;
+    left: -270px;
+    width: 240px;
+    height: 50px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    font-size: 12px;
+    color: #333;
+    z-index: 2;
+}
+.tooltip::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 260px; /* 툴팁 삼각형을 왼쪽에 위치 */
+    transform: translateY(-50%);
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent transparent #fff; /* 삼각형 색상 */
+}
+.tooltip::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 260px; /* 툴팁 삼각형 그림자를 왼쪽에 위치 */
+    transform: translateY(-50%);
+    border-width: 11px; /* 삼각형 크기 */
+    border-style: solid;
+    border-color: transparent transparent transparent #ccc; /* 삼각형 색상 */
+}
+.invalidToolTip{
+    width: 200px;
+    position: absolute;
+    top: 0px;
+    left: -270px;
+    width: 240px;
+    height: 50px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    font-size: 12px;
+    color: red;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+
+}
+.invalidToolTip::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 260px; /* 툴팁 삼각형을 왼쪽에 위치 */
+    transform: translateY(-50%);
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent transparent #fff; /* 삼각형 색상 */
+}
+.invalidToolTip::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 260px; /* 툴팁 삼각형 그림자를 왼쪽에 위치 */
+    transform: translateY(-50%);
+    border-width: 11px; /* 삼각형 크기 */
+    border-style: solid;
+    border-color: transparent transparent transparent #ccc; /* 삼각형 색상 */
+}
+
+.infoText {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #888;
+}
+
+.checkboxGroup {
+    display: flex;
+    width: 100%;
+    border: 1px solid #ccc;
+    flex-direction: column;
+    border-radius: 4px;
+    background-color: #fff;
+    padding: 20px 0px 10px 10px ;
+  }
+  
+  .checkboxBigLabel {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 35px;
+    cursor: pointer;
+    display: inline-block;
+  }
+  
+  .line {
+    border: 1px solid #ccc;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    margin-bottom: 15px;
+  }
+  
+
+  
+  .checkboxBigLabel {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 35px;
+    cursor: pointer;
+    display: inline-block;
+  }
+  
+  .line {
+    border: 1px solid #ccc;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    margin-bottom: 15px;
+  }
+  
+  .checkboxLabel {
+    margin-bottom: 15px;
+    font-size: 14px;
+    position: relative;
+    padding-left: 35px;
+    cursor: pointer;
+    display: inline-block;
+  }
+  
+  .checkboxLabel input,
+  .checkboxBigLabel input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 17px;
+    width: 17px;
+    background-color: #eee;
+    border-radius: 50%;
+  }
+  
+  .checkboxLabel:hover input ~ .checkmark,
+  .checkboxBigLabel:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+  
+  .checkboxLabel input:checked ~ .checkmark,
+  .checkboxBigLabel input:checked ~ .checkmark {
+    background-color: #E45D0F;
+  }
+  
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 5px;
+    width: 4px;
+    height: 7px;
+    border: 1px solid white;
+    border-top: 0px;
+    border-left: 0px;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+  }
+  
+  .checkboxLabel .checkmark:after,
+  .checkboxBigLabel .checkmark:after {
+    display: block; /* 항상 흰색 화살표 표시 */
+    color: white;
+  }
+  
+  
+
+.submitButton {
+    width: 365px;
+    padding: 15px;
+    background-color: #959595;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 60px;
+}
+.submitReadyButton{
+    width: 365px;
+    padding: 15px;
+    background-color: #E45D0F;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 60px;
+}
+
+
+.errorPassWordText{
+    display: flex;
+    width: 105%;
+    border-radius: 4px;
+    align-items: center;
+    padding-left : 10px;
+
+    height: 35px;
+    background: #f1e6e6;
+
+    font-size: 12px;
+    color: #585858;
+
+    margin-top: 7px;
+
+}
+.couponAnnouncement{
+    width: 105%;
+    margin-top: 10px;
+    background: #ECE7F1;
+    padding-top:5px;
+    
+    display:flex;
+    flex-direction: row;
+    border-radius: 6px;
+}
+.icInfoPurple{
+    padding-left: 10px;
+    margin-bottom:20px;
+    margin-right: 5px;
+}
+.infoText{
+    font-size: 12px;
+    font-weight: 500;
+    white-space: pre-wrap;
+ 
+ }
+ .companyInfo{
+    width: 100%;
+    height: 30px;
+    padding-right: 0px;
+    border-radius: 4px;
+    border: none; 
+    font-size: 13px;
+    font-weight: bold;
+    background-color:#f0f0f0 ;
+    color: #BDBDBD;
+ }
+.icInfoPurpleCharge{
+    padding-left: 10px;
+    margin-bottom: 55px;
+    margin-right: 5px;
+}
+
+.infoTextCharge{
+    font-size: 11px;
+    font-weight: 500;
+    white-space: pre-wrap;
+    padding-right: 6px;
+ }
+ .selectContainer{
+    position: relative;
+ }
+ .selectInput{
+    width: 100%;
+    height: 45px;
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 0px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #868686;
+
+    appearance: none; /* 기본 화살표를 숨깁니다. */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+ }
+ .nonClearButton{
+    position: absolute;
+    top: 50%;
+    right: 0px;
+    transform: translateY(-50%);
+    pointer-events: none
+}
+
+.selectContainer{
+    width: 343px;
+}
+
+.selected {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.selectLabel {
+    margin-top: 7px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+
+.option_container {
+    margin-top: 5px;
+    position: absolute;
+    width: 357px;
+    border-radius: 4px;
+    border-color: #888;
+    border-style: solid;
+    border-width: 1px;
+    z-index: 3;
+
+}
+
+.optionFirst{
+    display: flex;
+    align-items: center;
+    width: parent;
+    height: 30px;
+    padding: 8px 20px ;
+    background-color: #fff;
+    color: #000;
+    font-size: 14px;
+    border-radius: 4px 4px 0px 0px;
+}
+.option{
+    display: flex;
+    align-items: center;
+    width: parent;
+    height: 30px;
+    padding: 8px 20px ;
+    background-color: #fff;
+    color: #000;
+    font-size: 14px;
+}
+.optionLast{
+    display: flex;
+    align-items: center;
+    width: parent;
+    height: 30px;
+    padding: 8px 20px ;
+    background-color: #fff;
+    color: #000;
+    font-size: 14px;
+    border-radius: 0px 0px 4px 4px;
+}
+
+
+.option:hover {
+    background-color: #EEE;
+}
+.optionFirst:hover{
+    background-color: #EEE;
+}
+.optionLast:hover{
+    background-color: #EEE;
+}
