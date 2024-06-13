@@ -103,21 +103,21 @@ function CompanySignup() {
         return lengthCheck && validConditions;
     };
   
-      const passwordDoubleCheck = (password, passwordChk) => {
-          if(password !== passwordChk){
-              console.log('비밀번호가 다릅니다.');
-              setIsVailPasswordChk(false);
-          }else{
-              console.log('비밀번호가 동일합니다');
-              setIsVailPasswordChk(true);
-          }
-          checkAll(email, password, isValidEmail, user, passwordLength, isValidPassword, isValidPasswordChk, registrationNumber, companyUsername, companyPhoneNum, companyNickname, currentValue);
-      }
+    const passwordDoubleCheck = (password, passwordChk) => {
+        if(password !== passwordChk){
+            console.log('비밀번호가 다릅니다.');
+            setIsVailPasswordChk(false);
+        }else{
+            console.log('비밀번호가 동일합니다');
+            setIsVailPasswordChk(true);
+        }
+        checkAll(email, password, isValidEmail, user, passwordLength, isValidPassword, isValidPasswordChk, registrationNumber, companyUsername, companyPhoneNum, companyNickname, currentValue);
+    }
 
-      const checkPasswordLength = (password) =>{
+    const checkPasswordLength = (password) =>{
         setPasswordLength(password.length);
         checkAll(email, password, isValidEmail, user, passwordLength, isValidPassword, isValidPasswordChk, registrationNumber, companyUsername, companyPhoneNum, companyNickname, currentValue);
-      }
+    }
 
     const checkRegistrationNumber = (registrationNumber) =>{
 
@@ -144,8 +144,29 @@ function CompanySignup() {
         setCurrentValue(e.target.getAttribute("value"));
         setSelectClick(false);
       };
+
+
+    const changeCompanyName=(companyUsername) =>{
+        setCompanyUsername(companyUsername);
+        checkAll(email, password, isValidEmail, user, passwordLength, isValidPassword, isValidPasswordChk, registrationNumber, companyUsername, companyPhoneNum, companyNickname, currentValue);
+    }
     
     const checkAll=(email, password, isValidEmail, user, passwordLength, isValidPassword, isValidPasswordChk, registrationNumber, companyUsername, companyPhoneNum, companyNickname, currentValue) =>{
+        console.log("start");
+        console.log(email !=='');
+        console.log(password !=='');
+        console.log(isValidEmail);
+        console.log(user ==='0');
+        console.log(passwordLength>=8);
+        console.log(isValidPassword);
+        console.log(isValidPasswordChk);
+        console.log(registrationNumber.length === 10);
+        console.log(companyUsername!=='');
+        console.log(companyPhoneNum !=='');
+        console.log(companyNickname !=='');
+        console.log(currentValue !=="자소설닷컴을 어떻게 알게 되셨나요?");
+        console.log(agreements.terms);
+
         if(email !=='' && password !=='' && isValidEmail && user ==='0' && passwordLength>=8 && isValidPassword && isValidPasswordChk 
             && registrationNumber.length === 10 && companyUsername!=='' &&  companyPhoneNum !=='' && companyNickname !=='' && currentValue !=="자소설닷컴을 어떻게 알게 되셨나요?" && agreements.terms && agreements.personalInfo){
                 setSubmit(true);
@@ -156,12 +177,15 @@ function CompanySignup() {
             console.log("false");
         }
     }
+    const handleSubmit = (event) => {
+        event.preventDefault(); // 폼 제출 막기
+    }    
 
     return (
         <div className={styles.container}>
             <div className={styles.title}>기업 회원 가입</div>
             
-            <form className={styles.form} onClick={(e) => e.stopPropagation()}>
+            <form className={styles.form} onClick={(e) => e.stopPropagation()} onSubmit={handleSubmit}>
                 <div className={styles.formGroup}>
                     <label htmlFor="email" className={styles.label}>아이디(이메일주소)</label>
                     <div className={styles.inputWithTooltip}>
@@ -215,7 +239,7 @@ function CompanySignup() {
                         <input type="password" id="password" name="password"  value={password} placeholder="8-16자리 비밀번호 입력" 
                         onChange={(e) => {setPassword(e.target.value); passwordCheck(e.target.value); passwordDoubleCheck(e.target.value, passwordChk); checkPasswordLength(password)}}
                         className={`${styles.input} ${!(isValidPassword||password==='' ) ?  styles.invalidInput: ''}`}
-                        />
+                        onSubmit={handleSubmit} />
                         {password && (
                             <img
                                 src={closeCircle}
@@ -231,6 +255,7 @@ function CompanySignup() {
                                     onChange={(e) => {setPasswordChk(e.target.value); passwordDoubleCheck(password, e.target.value)}}
                                     placeholder="비밀번호 재입력"
                                     className={styles.input}
+                                    onSubmit={handleSubmit}
                                     />
                     {passwordChk && (
                     <img
@@ -261,7 +286,7 @@ function CompanySignup() {
                     <label className={styles.label}>사업자 등록번호</label>
                     <div style={{position: 'relative'}}>
                         <input type="text"  id="registrationNumber" name="registrationNumber" className={styles.input} value={registrationNumber} placeholder="000-00-00000"
-                        onChange={(e)=>checkRegistrationNumber(e.target.value)} 
+                        onChange={(e)=>checkRegistrationNumber(e.target.value)} onSubmit={handleSubmit} 
                         />
                         {registrationNumber && (
                             <img
@@ -285,7 +310,7 @@ function CompanySignup() {
                 <div className={styles.formGroup}>
                     <label htmlFor="managerName" className={styles.label}>담당자 정보</label>
                     <div style={{position: 'relative'}}>
-                        <input type="text" id="managerName" name="managerName" className={styles.input} value={companyUsername} placeholder="담당자명" onChange={(e)=>setCompanyUsername(e.target.value)} />
+                        <input type="text" id="managerName" name="managerName" className={styles.input} value={companyUsername} placeholder="담당자명" onChange={(e)=>setCompanyUsername(e.target.value)} onSubmit={handleSubmit} />
                         {companyUsername && (
                             <img
                                 src={closeCircle}
@@ -298,7 +323,7 @@ function CompanySignup() {
                     <div style={{ marginBottom: '7px' }} />
 
                     <div style={{position: 'relative'}}>
-                        <input type="text" id="managerName" name="managerName" className={styles.input} value={companyPhoneNum} placeholder="담당자 연락처" onChange={(e)=>setCompanyPhoneNum(e.target.value)} />
+                        <input type="text" id="managerPhoneNum" name="managerPhoneNum" className={styles.input} value={companyPhoneNum} placeholder="담당자 연락처" onChange={(e)=>setCompanyPhoneNum(e.target.value)} onSubmit={handleSubmit}/>
                         {companyPhoneNum && (
                             <img
                                 src={closeCircle}
@@ -311,7 +336,7 @@ function CompanySignup() {
                     <div style={{ marginBottom: '7px' }} />
 
                     <div style={{position: 'relative'}}>
-                        <input type="text" id="managerName" name="managerName" className={styles.input} value={companyNickname} placeholder="자소설닷컴 채팅방 닉네임" onChange={(e)=>setCompanyNickname(e.target.value)} />
+                        <input type="text" id="managerNickName" name="managerNickName" className={styles.input} value={companyNickname} placeholder="자소설닷컴 채팅방 닉네임" onChange={(e)=>setCompanyNickname(e.target.value)} onSubmit={handleSubmit}/>
                         {companyNickname && (
                             <img
                                 src={closeCircle}
