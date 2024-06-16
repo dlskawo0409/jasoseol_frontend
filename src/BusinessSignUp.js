@@ -1,7 +1,6 @@
 import { TopBar } from "./Business";
 import styles from './BusinessSinUp.module.css'
-import React, { useState} from 'react';
-import check from './Image/ic_check_blue.svg';
+import React, { useState, useEffect} from 'react';
 import alert from './Image/ic_alert.svg';
 import closeCircle from './Image/ic_close_circle.svg';
 import ic_info_purple from './Image/ic_info_purple.svg';
@@ -20,17 +19,19 @@ function Page() {
 }
 
 function CompanySignup() {
+    
+
     const [agreements, setAgreements] = useState({
         all: false,
         terms: false,
         personalInfo: false,
         marketing: false,
     });
-
-    const [showTooltip, setShowTooltip] = useState(false);
+    
 
     const handleAgreementChange = (e) => {
         const { name, checked } = e.target;
+
         if (name === "all") {
             setAgreements({
                 all: checked,
@@ -39,13 +40,17 @@ function CompanySignup() {
                 marketing: checked,
             });
         } else {
-            setAgreements({
+            const newAgreements = {
                 ...agreements,
                 [name]: checked,
-                all: checked && agreements.terms && agreements.personalInfo && agreements.marketing,
-            });
+            };
+            newAgreements.all = newAgreements.terms && newAgreements.personalInfo && newAgreements.marketing;
+            setAgreements(newAgreements);
         }
+
     };
+
+    const [showTooltip, setShowTooltip] = useState(false);
 
     const handleEmailFocus = () => {
         setShowTooltip(true);
@@ -83,7 +88,6 @@ function CompanySignup() {
             const emailCondition = await getEmailCondition(newEmail);
             setUser(emailCondition); // 이메일 존재 여부 상태 업데이트
         }
-        checkAll(email, password, isValidEmail, user, passwordLength, isValidPassword, isValidPasswordChk, registrationNumber, companyUsername, companyPhoneNum, companyNickname, currentValue);
     };
 
     const passwordCheck = (password) => {
@@ -99,7 +103,6 @@ function CompanySignup() {
         const validConditions = conditions.filter(Boolean).length >= 2;
         // 길이 체크와 조건 충족 여부를 모두 만족해야 함
         setIsValidPassword(lengthCheck && validConditions);
-        checkAll(email, password, isValidEmail, user, passwordLength, isValidPassword, isValidPasswordChk, registrationNumber, companyUsername, companyPhoneNum, companyNickname, currentValue);
         return lengthCheck && validConditions;
     };
   
@@ -111,12 +114,12 @@ function CompanySignup() {
             console.log('비밀번호가 동일합니다');
             setIsVailPasswordChk(true);
         }
-        checkAll(email, password, isValidEmail, user, passwordLength, isValidPassword, isValidPasswordChk, registrationNumber, companyUsername, companyPhoneNum, companyNickname, currentValue);
+
     }
 
     const checkPasswordLength = (password) =>{
         setPasswordLength(password.length);
-        checkAll(email, password, isValidEmail, user, passwordLength, isValidPassword, isValidPasswordChk, registrationNumber, companyUsername, companyPhoneNum, companyNickname, currentValue);
+
     }
 
     const checkRegistrationNumber = (registrationNumber) =>{
@@ -138,48 +141,67 @@ function CompanySignup() {
             last = '-'+onlyNumber.slice(5,10);
         }
         setRegistrationNumber(left +middle+last);
-        checkAll(email, password, isValidEmail, user, passwordLength, isValidPassword, isValidPasswordChk, registrationNumber, companyUsername, companyPhoneNum, companyNickname, currentValue);
+
     }
     const handleOnChangeSelectValue = (e) => {
         setCurrentValue(e.target.getAttribute("value"));
+
         setSelectClick(false);
       };
 
 
     const changeCompanyName=(companyUsername) =>{
         setCompanyUsername(companyUsername);
-        checkAll(email, password, isValidEmail, user, passwordLength, isValidPassword, isValidPasswordChk, registrationNumber, companyUsername, companyPhoneNum, companyNickname, currentValue);
+
+    }
+    const changeCompanyPhoneNum =(companyPhoneNum) =>{
+        setCompanyPhoneNum(companyPhoneNum);
+
+    }
+    const changeCompanyNickname = (companyNickname) =>{
+        setCompanyNickname(companyNickname);
+
     }
     
-    const checkAll=(email, password, isValidEmail, user, passwordLength, isValidPassword, isValidPasswordChk, registrationNumber, companyUsername, companyPhoneNum, companyNickname, currentValue) =>{
-        console.log("start");
-        console.log(email !=='');
-        console.log(password !=='');
-        console.log(isValidEmail);
-        console.log(user ==='0');
-        console.log(passwordLength>=8);
-        console.log(isValidPassword);
-        console.log(isValidPasswordChk);
-        console.log(registrationNumber.length === 10);
-        console.log(companyUsername!=='');
-        console.log(companyPhoneNum !=='');
-        console.log(companyNickname !=='');
-        console.log(currentValue !=="자소설닷컴을 어떻게 알게 되셨나요?");
-        console.log(agreements.terms);
+    const checkAll=() =>{
 
         if(email !=='' && password !=='' && isValidEmail && user ==='0' && passwordLength>=8 && isValidPassword && isValidPasswordChk 
-            && registrationNumber.length === 10 && companyUsername!=='' &&  companyPhoneNum !=='' && companyNickname !=='' && currentValue !=="자소설닷컴을 어떻게 알게 되셨나요?" && agreements.terms && agreements.personalInfo){
+            && registrationNumber.length === 12 && companyUsername!=='' &&  companyPhoneNum !=='' && companyNickname !=='' && currentValue !=="자소설닷컴을 어떻게 알게 되셨나요?" && agreements.terms && agreements.personalInfo){
                 setSubmit(true);
-                console.log("true");
             }
         else{
             setSubmit(false);
-            console.log("false");
         }
     }
     const handleSubmit = (event) => {
         event.preventDefault(); // 폼 제출 막기
     }    
+
+    useEffect(() => {
+        checkAll();
+    }, [
+        agreements,
+        email,
+        password,
+        isValidEmail,
+        user,
+        passwordLength,
+        isValidPassword,
+        isValidPasswordChk,
+        registrationNumber,
+        companyUsername,
+        companyPhoneNum,
+        companyNickname,
+        currentValue,
+    ]);
+
+
+    const clickSubmit=() =>{
+        if(submit){
+            submitToServer(email,password, registrationNumber, companyUsername, companyPhoneNum, companyNickname, agreements)
+        }
+    }
+
 
     return (
         <div className={styles.container}>
@@ -310,7 +332,7 @@ function CompanySignup() {
                 <div className={styles.formGroup}>
                     <label htmlFor="managerName" className={styles.label}>담당자 정보</label>
                     <div style={{position: 'relative'}}>
-                        <input type="text" id="managerName" name="managerName" className={styles.input} value={companyUsername} placeholder="담당자명" onChange={(e)=>setCompanyUsername(e.target.value)} onSubmit={handleSubmit} />
+                        <input type="text" id="managerName" name="managerName" className={styles.input} value={companyUsername} placeholder="담당자명" onChange={(e)=>changeCompanyName(e.target.value)} onSubmit={handleSubmit} />
                         {companyUsername && (
                             <img
                                 src={closeCircle}
@@ -323,7 +345,7 @@ function CompanySignup() {
                     <div style={{ marginBottom: '7px' }} />
 
                     <div style={{position: 'relative'}}>
-                        <input type="text" id="managerPhoneNum" name="managerPhoneNum" className={styles.input} value={companyPhoneNum} placeholder="담당자 연락처" onChange={(e)=>setCompanyPhoneNum(e.target.value)} onSubmit={handleSubmit}/>
+                        <input type="text" id="managerPhoneNum" name="managerPhoneNum" className={styles.input} value={companyPhoneNum} placeholder="담당자 연락처" onChange={(e)=>changeCompanyPhoneNum(e.target.value)} onSubmit={handleSubmit}/>
                         {companyPhoneNum && (
                             <img
                                 src={closeCircle}
@@ -336,7 +358,7 @@ function CompanySignup() {
                     <div style={{ marginBottom: '7px' }} />
 
                     <div style={{position: 'relative'}}>
-                        <input type="text" id="managerNickName" name="managerNickName" className={styles.input} value={companyNickname} placeholder="자소설닷컴 채팅방 닉네임" onChange={(e)=>setCompanyNickname(e.target.value)} onSubmit={handleSubmit}/>
+                        <input type="text" id="managerNickName" name="managerNickName" className={styles.input} value={companyNickname} placeholder="자소설닷컴 채팅방 닉네임" onChange={(e)=>changeCompanyNickname(e.target.value)} onSubmit={handleSubmit}/>
                         {companyNickname && (
                             <img
                                 src={closeCircle}
@@ -401,7 +423,7 @@ function CompanySignup() {
                         </label>
                         </div>
                 </div>
-                <button type="submit"className={`${styles.submitButton} ${(submit) ?  styles.submitReadyButton: ''}`}>기업 회원 가입하기</button>
+                <button type="submit"className={`${styles.submitButton} ${(submit) ?  styles.submitReadyButton: ''}`}onClick={clickSubmit}>기업 회원 가입하기</button>
             </form>
         </div>
     );
@@ -409,7 +431,7 @@ function CompanySignup() {
 
 async function getEmailCondition(email) {
     try {
-  
+
       const response = await fetch(`http://localhost:8080/api/check-email?email=${email}`, {
         method: 'GET',
         headers: {
@@ -433,5 +455,45 @@ async function getEmailCondition(email) {
       return -1; // 에러 처리, 실제 사용 시 필요에 따라 변경 가능
     }
   }
+
+  async function submitToServer(email,password, registrationNumber, companyUsername, companyPhoneNum, companyNickname, agreements){
+    try{
+        let tempMarketing = arguments.marketing ? '1' : '0'
+
+        const response = await fetch(`http://localhost:8080/api/join/company-user`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password,
+                nickname: companyNickname,
+                marketing: tempMarketing,
+                companyNum: registrationNumber,
+                companyUserName : companyUsername,
+                companyUserPhonenum : companyPhoneNum,
+
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const responseData = await response.json(); // JSON 객체를 기다린 후 반환받음
+        const data = responseData.message;
+        
+
+        console.log(data);
+        if(data === 'Join Success'){
+            console.log('Join successful');
+        }
+
+    }
+    catch(error){
+        console.log("Join Fail");
+    }
+  }
+
 
 export default Page;
