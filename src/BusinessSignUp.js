@@ -1,6 +1,6 @@
 import { TopBar } from "./Business";
 import styles from './BusinessSinUp.module.css'
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import alert from './Image/ic_alert.svg';
 import closeCircle from './Image/ic_close_circle.svg';
 import ic_info_purple from './Image/ic_info_purple.svg';
@@ -145,7 +145,6 @@ function CompanySignup() {
     }
     const handleOnChangeSelectValue = (e) => {
         setCurrentValue(e.target.getAttribute("value"));
-
         setSelectClick(false);
       };
 
@@ -163,24 +162,28 @@ function CompanySignup() {
 
     }
     
-    const checkAll=() =>{
-
-        if(email !=='' && password !=='' && isValidEmail && user ==='0' && passwordLength>=8 && isValidPassword && isValidPasswordChk 
-            && registrationNumber.length === 12 && companyUsername!=='' &&  companyPhoneNum !=='' && companyNickname !=='' && currentValue !=="자소설닷컴을 어떻게 알게 되셨나요?" && agreements.terms && agreements.personalInfo){
-                setSubmit(true);
-            }
-        else{
+    const checkAll = useCallback(() => {
+        if (
+            email !== '' &&
+            password !== '' &&
+            isValidEmail &&
+            user === '0' &&
+            passwordLength >= 8 &&
+            isValidPassword &&
+            isValidPasswordChk &&
+            registrationNumber.length === 12 &&
+            companyUsername !== '' &&
+            companyPhoneNum !== '' &&
+            companyNickname !== '' &&
+            currentValue !== "자소설닷컴을 어떻게 알게 되셨나요?" &&
+            agreements.terms &&
+            agreements.personalInfo
+        ) {
+            setSubmit(true);
+        } else {
             setSubmit(false);
         }
-    }
-    const handleSubmit = (event) => {
-        event.preventDefault(); // 폼 제출 막기
-    }    
-
-    useEffect(() => {
-        checkAll();
     }, [
-        agreements,
         email,
         password,
         isValidEmail,
@@ -193,12 +196,22 @@ function CompanySignup() {
         companyPhoneNum,
         companyNickname,
         currentValue,
+        agreements.terms,
+        agreements.personalInfo
+    ]);
+    const handleSubmit = (event) => {
+        event.preventDefault(); // 폼 제출 막기
+    }    
+    useEffect(() => {
+        checkAll();
+    }, [
+        checkAll
     ]);
 
 
     const clickSubmit=() =>{
         if(submit){
-            submitToServer(email,password, registrationNumber, companyUsername, companyPhoneNum, companyNickname, agreements)
+            submitToServer(email,password, registrationNumber, companyUsername, companyPhoneNum, companyNickname, agreements, currentValue)
         }
     }
 
@@ -385,7 +398,7 @@ function CompanySignup() {
                                 <div className={styles.selectLabel}>{currentValue}</div>
                             </div>
                         </div>
-                        <img src={arrow} className={styles.nonClearButton} ></img>
+                        <img src={arrow} className={styles.nonClearButton} alt="화살표 아이콘"></img>
                         <div className ={styles.option_container}style={{ display: selectClick ? 'block' : 'none'}}>
                             <div className={styles.optionFirst} onClick={handleOnChangeSelectValue} value='입사자, 지원자 지원경로 조사'>입사자, 지원자 지원경로 조사</div>
                             <div className={styles.option} onClick={handleOnChangeSelectValue} value='동료, 지인의 추천'>동료, 지인의 추천</div>
@@ -456,9 +469,30 @@ async function getEmailCondition(email) {
     }
   }
 
-  async function submitToServer(email,password, registrationNumber, companyUsername, companyPhoneNum, companyNickname, agreements){
+  const getComePath = (currentValue) => {
+    switch(currentValue) {
+        case '입사자, 지원자 지원경로 조사':
+            return 'EMPLOYEE';
+        case '동료, 지인의 추천':
+            return 'COLLEAGUE';
+        case '인터뷰, 기사 등 언론 매체':
+            return 'INTERVIEW';
+        case '검색':
+            return 'SEARCH';
+        case '취업 준비하며 이용':
+            return 'USE';
+        case '기타':
+            return 'ETC';
+        default:
+            return 'ETC'; // 기본값 설정
+    }
+}
+
+
+  async function submitToServer(email,password, registrationNumber, companyUsername, companyPhoneNum, companyNickname, agreements, currentValue){
     try{
         let tempMarketing = arguments.marketing ? '1' : '0'
+        let resultComePath = getComePath(currentValue);
 
         const response = await fetch(`http://localhost:8080/api/join/company-user`, {
             method: 'POST',
@@ -473,6 +507,7 @@ async function getEmailCondition(email) {
                 companyNum: registrationNumber,
                 companyUserName : companyUsername,
                 companyUserPhonenum : companyPhoneNum,
+                comePath : resultComePath,
 
             }),
           });
@@ -487,6 +522,8 @@ async function getEmailCondition(email) {
         console.log(data);
         if(data === 'Join Success'){
             console.log('Join successful');
+            window.location.href = '/business_users/sign_in';
+            
         }
 
     }
