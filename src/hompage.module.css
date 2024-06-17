@@ -1,6 +1,22 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: #Ffff; /* Apply the background color here */
+}
+.mainContainer {
+    /* margin-top: 50px; */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #Ffff;
+    margin-top:50px;
 
+}
 .TopBar{
-    height: 30 px;
+    height: 50px;
     display:  flex;
     flex-direction: row;
     align-items: stretch;
@@ -11,6 +27,11 @@
     border-right-width: 0px;
     border-bottom-width: 1px;
     border-bottom-color: #E6E6E6;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #FFFFFF;
+    z-index: 1000;
 }
 .Items{
     display: inline-flex;
@@ -27,10 +48,8 @@
 .line{
     height: 20px;
     margin-left: 15px;
-
     margin-top: 15px;
     margin-bottom: 15px;
-
     border-style: solid;
     border-width: 0px;
     border-left-width: 1px;
@@ -563,3 +582,78 @@
     text-decoration-line: underline;
     cursor: pointer;
 }
+.slideContainer{
+    padding-top: 25px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+.slideShow{
+    width: 1200px;
+    height: 275px;
+    text-align: center;
+    font-size: 40px;
+    background-color: #Ffff;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px  #848484;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+}
+
+.compartment {
+    width: 100%;
+    height: 275px;
+    flex-shrink: 0; /*이 구역안에 생기는 영역들이 공간을 분배하여 가지지 않도록 적용*/
+    font-size: 40px;
+    text-align: center;
+  }
+  
+  /* 각 슬라이드가 변경되는 것을 시각적으로 확인하기 쉽도록 각 슬라이드별 색상 적용 */
+  .compartment:nth-child(1) {
+    background-color: red;
+  }
+  .compartment:nth-child(2) {
+    background-color: yellowgreen;
+  }
+  .compartment:nth-child(3) {
+    background-color: blueviolet;
+  }
+  .compartment:nth-child(4) {
+    background-color: orange;
+  }
+  .compartment:nth-child(5) {
+    background-color: skyblue;
+  }
+
+.nextButton{
+    position: absolute;
+    background-color: #FFF;
+    margin-top: 102px; 
+    margin-left: 1130px;
+    width: 40px;
+    height: 70px;
+    border-radius: 20px;
+    border-style: none;
+}
+.prevButton{
+    position: absolute;
+    background-color: #FFF;
+    margin-top: 102px;
+    left: 370px;
+    width: 40px;
+    height: 70px;
+    border-radius: 20px;
+    border-style: none;
+}
+.slideIndex {
+    position: absolute;
+    display: flex;
+    gap: 8px;
+    margin-top: 365px;
+    cursor: pointer;
+  }
+  
+  .indexItem.active {
+    color: blue; 
+  }

@@ -5,7 +5,7 @@ import styles from './resume_list.module.css';
 
 function Page() {
     return (
-        <div className={styles.test}>
+        <div className={styles.mainContainer}>
             <TopBar selected="자기소개서" login={false} />
             <div className={styles.iconButtons}>
                 <button className={`${styles.buttonWithIcon} ${styles.buttonHover}`}>
