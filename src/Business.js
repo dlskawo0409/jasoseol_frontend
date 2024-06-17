@@ -19,7 +19,12 @@ function Page() {
                     <EmailForm  email={email} setEmail ={setEmail}/>
                     <PasswordForm password={password} setPassword={setPassword}/>
                     <StayLogin rememberMe={rememberMe} setRememberMe={setRememberMe}/>
-                    <SubmitButton/>
+                    <SubmitButton text={'기업 계정 로그인'}/>
+                    <div className={styles.linkContainer}>
+                        <GoToSignUp/>
+                        <GoToFindPassWord/>
+                    </div>
+                    
                 </div>
             </div>    
         </div>
@@ -198,9 +203,24 @@ function StayLogin({rememberMe, setRememberMe}){
     )
 }
 
-function SubmitButton(){
+function SubmitButton({text}){
     return(
-        <button type="submit"className={styles.submitButton} onClick={submitToServer}>기업 계정 로그인</button>
+        <button type="submit"className={styles.submitButton} onClick={submitToServer}>{text}</button>
+    )
+}
+
+function GoToSignUp(){
+    return(
+        <Link to={"http://localhost:3000/business_users/sign_up"} className={styles.link}>
+            회원가입
+        </Link>
+    )
+}
+function GoToFindPassWord(){
+    return (
+        <Link to={"http://localhost:3000/business_users/password/new"} className={styles.link}>
+            비밀번호 찾기
+        </Link>
     )
 }
 
@@ -237,4 +257,4 @@ async function submitToServer(email,password){
     }
   }
 
-  export   {Page, TopBar};
+  export   {Page, TopBar, EmailForm, SubmitButton};

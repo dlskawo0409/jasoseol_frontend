@@ -6,7 +6,7 @@ import closeCircle from './Image/ic_close_circle.svg';
 import ic_info_purple from './Image/ic_info_purple.svg';
 import arrow from './Image/ic_arrow_down_solid.svg'
 
-function Page() {
+function SignUp() {
     const [login, setLogin] = useState(false);
     return(
         <div>
@@ -533,4 +533,4 @@ async function getEmailCondition(email) {
   }
 
 
-export default Page;
+export default SignUp;
