@@ -1,3 +1,6 @@
+.mainContainer{
+    margin-top: 50px;
+}
 .iconButtons {
     display: flex;
     /* justify-content: center; */

@@ -13,6 +13,8 @@ import check from './Image/ic_check_blue.svg';
 import selected from './Image/ic_checkbox_rounded_selected.svg';
 import unselected from './Image/ic_checkbox_rounded_unselected.svg';
 import ic_info_purple from './Image/ic_info_purple.svg';
+import arrowRight from './Image/ic_arrow_right_linear.svg'
+import arrowLeft from './Image/ic_arrow_left_linear.svg'
 import ExperienceForm from './ExperienceForm.js'
 import styles from './hompage.module.css';
 import React, { useState , useEffect  } from 'react';
@@ -45,7 +47,9 @@ function Page() {
     return (
         <div>
             <TopBar selected="" login={login} setLogin={setLogin} setCareer={setCareer}/>
-            <RotateSlide />
+            <div className={styles.mainContainer}>
+                <RotateSlide />
+            </div>
         </div>
     );
 }
@@ -185,7 +189,7 @@ function MenuIcon({login, setLogin, setModalOpen}){
                 <img src={userIcon} alt="userIcon" />
             </div>
             <div className={styles.icon}>
-                 <img src={notificationIcon} alt="notificationIcon" />
+                <img src={notificationIcon} alt="notificationIcon" />
             </div>
             <div className={styles.icon}>
                 <img src={chatIcon} alt="chatIcon" />
@@ -548,7 +552,7 @@ function EmailJoinModal({ onClose, setModalMode, setLogin, setCareer }){
            <div className={styles.emailJoinInputContainer} >
                 <span>비밀번호</span>
                 {isValidPassword && <img src={check} alt="check" style={{marginLeft:'5px'}}/>}
-                    <div className={styles.emailInputContainer}>
+                    ontain<div className={styles.emailInputCer}>
                         <form  onSubmit={handleSubmit}>
                             <label>
                                 <input type="password" value={password}
@@ -697,7 +701,7 @@ async function getLogin(email, password, setLogin, setCareer){
             setLogin(true);
             const temp = await getCarrer(email);
             console.log(temp);
-            if(temp == 0){
+            if(temp === 0){
                 console.log("re");
                 // <Link to={"/ExperienceForm"}></Link>
                 window.location.href = `/ExperienceForm?email=${encodeURIComponent(email)}`; // email을 쿼리 매개 변수로 추가;
@@ -743,14 +747,93 @@ async function getCarrer(email){
 
 
 function RotateSlide() { //홈
+    const [isHover, setIsHover] = useState(false);
+    const trainCompartment = ['1 칸', '2 칸', '3 칸', '4 칸', '5 칸']; // 이미지 = 칸
+    const [curSlide, setCurSlide] = useState(0); //이미지 슬라이드에서 표출되는 이미지 번호
+
+    const FIRST_SLIDE_INDEX = 0; // 이미지 슬라이드의 시작 번호
+    const LAST_SLIDE_INDEX = trainCompartment.length - 1; // 이미지 슬라이드의 끝 번호
+    const MOVE_SLIDE_INDEX = 1; // 이미지 슬라이드 이동 값
+
+    const moveToSlide = (value) => {
+        if (value === 'next') {
+          // 슬라이드 끝점에 도달했을 때 curSlide의 값을 바꿔 처음으로 돌아가게 한다.
+          setCurSlide((prevState) =>
+            prevState < LAST_SLIDE_INDEX
+              ? prevState + MOVE_SLIDE_INDEX
+              : FIRST_SLIDE_INDEX
+          );
+        }
+        if (value === 'prev') {
+          // 슬라이드 시작점에 도달했을 때 curSlide의 값을 바꿔 마지막으로 돌아가게 한다.
+          setCurSlide((prevState) =>
+            prevState > FIRST_SLIDE_INDEX
+              ? prevState - MOVE_SLIDE_INDEX
+              : LAST_SLIDE_INDEX
+          );
+        }
+      };
+
+    //Interval ID를 저장할 변수
+    const [intervalId, setIntervalId] = useState(null);
+
+    useEffect(() => {
+        const id = setInterval(() => {
+            setCurSlide((prevState) =>
+                prevState < LAST_SLIDE_INDEX
+                    ? prevState + MOVE_SLIDE_INDEX
+                    : FIRST_SLIDE_INDEX
+            );
+        }, 4000);
+        setIntervalId(id);  // 인터벌 ID를 상태로 저장하여 나중에 클리어할 수 있게 합니다.
+        
+        return () => clearInterval(id);  // 컴포넌트가 언마운트될 때 인터벌을 클리어합니다.
+    }, []);  // 빈 배열을 사용하여 컴포넌트가 처음 마운트될 때만 useEffect를 실행합니다.
+    
+    
     return (
-        <div className={styles.slideContainer}>
-            <div className={styles.slideShow}>
-                보여줄 화면
+        <div className={styles.slideContainer} >
+            <div className={styles.slideShow} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
+                {
+                trainCompartment.map((item, index) => (
+                    <div className={styles.compartment}
+                        key={index}
+                        style={{
+                            transform: `translateX(${-1200 * curSlide}px)`, // translateX를 이용하여 [이미지 = 칸]을 왼쪽으로 이동, 1100px는 show의 너비
+                            transition: 'all 0.4s ease-in-out', // 슬라이드 처럼 자연스럽게 넘어가기 위한 효과
+                        }}
+                    
+                    >
+                        {item}
+                    </div>
+                    ))
+                }
+
             </div>
+            {isHover && 
+                <button className={styles.prevButton} onClick={() => moveToSlide('prev')} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
+                    <img src={arrowLeft} alt="arrowLeft" />
+                </button>
+            }
+
+            {isHover && 
+                <button className={styles.nextButton} onClick={() => moveToSlide('next')} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
+                    <img src={arrowRight} alt="arrowRight" />
+                </button>
+            }
+
         </div>
+
     );
+    
 }
+
+// async function getMainImage(){
+//     try(
+
+//     )
+// }
+
 
 //async function login(){
 //    try {

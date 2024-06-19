@@ -4,6 +4,7 @@ import React from 'react';
 import styles from './resume_list.module.css';
 
 function Page() {
+
   const [fileButtonClicked, setFileButtonClicked] = React.useState(false);
   const [folderButtonClicked, setFolderButtonClicked] = React.useState(false);
   const [signatureButtonClicked, setSignatureButtonClicked] = React.useState(false);
@@ -96,6 +97,7 @@ function Page() {
       </div>
     </div>
   );
+
 }
 
 export default Page;

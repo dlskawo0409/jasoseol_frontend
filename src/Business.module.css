@@ -1,0 +1,284 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: #f0f0f0; /* Apply the background color here */
+}
+.mainContainer {
+    /* margin-top: 50px; */
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+}
+.container{
+    width: 343px;
+    display: flex;
+    flex-direction: column;
+}
+.TopBar{
+    height: 50px;
+    display:  flex;
+    flex-direction: row;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    border-style: solid;
+    border-top-width: 0px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 1px;
+    border-bottom-color: #E6E6E6;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #FFFFFF;
+    z-index: 1000;
+}
+
+.Items{
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding-left: 25px;
+
+}
+.BarLogo{
+    margin-top: 8px;
+    margin-bottom: 4px;
+
+}
+.line{
+    height: 20px;
+    margin-left: 15px;
+
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+    border-style: solid;
+    border-width: 0px;
+    border-left-width: 1px;
+    border-color: #E6E6E6;
+}
+
+.menu{
+    width:530px;
+    margin-top: 12px;
+    margin-left: 25px;
+
+}
+
+.clickedMenu{ /*위에 버튼 누르면 아래 보이는 언더바*/
+
+  color: #2E2E2E;
+  font-weight: bold;
+  height: 30px;
+
+  font-size: 15px;
+  font-weight: 900;
+
+  border-top-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-bottom-width: 3px;
+  border-bottom-style: solid;
+  border-color: #FF6813;
+  display: inline-block; /* 추가된 속성 */
+
+  margin-right:15px;
+}
+.linkNoDecoration{
+
+    width: 100px;
+    text-decoration: none; /* 밑줄 없애기 */
+    color: inherit; /* 링크 색상을 텍스트와 동일하게 설정 */
+    color : #A4A4A4;
+    font-weight: 900;
+    font-size: 15px;
+  
+    margin-right:15px;
+    margin-top: 20px;
+  
+  }
+.linkNoDecoration:hover{
+  
+    text-decoration: none; /* 밑줄 없애기 */
+    color: inherit; /* 링크 색상을 텍스트와 동일하게 설정 */
+    color : #2E2E2E;
+    font-weight: 900;
+    font-size: 15px;
+    margin-right:15px;
+}
+.bin{
+    width: 1600px;
+}
+.loginButton{
+
+    width : 50px;
+    height: 32px;
+    background: #F8ECE0;
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: #FF8000;
+    border-style: solid;
+
+    display : flex;
+    align-items : center;
+    justify-content : center;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #FF8000;
+
+    margin-top: 8px;
+    margin-right: 7px;
+}
+.loginButton:hover{
+    width : 50px;
+    height: 32px;
+    background: #F7BE81;
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: #FF8000;
+    border-style: solid;
+
+    display : flex;
+    align-items : center;
+    justify-content : center;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #FF8000;
+    margin-right: 7px;
+
+    cursor: pointer;
+}
+.serviceButton{
+    width : 60px;
+    height: 32px;
+    background: white;
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: #BDBDBD;
+    border-style: solid;
+
+    display : flex;
+    align-items : center;
+    justify-content : center;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #BDBDBD;
+
+    margin-top: 8px;
+}
+.serviceButton:hover{
+    background: #E6E6E6;
+    cursor: pointer;
+}
+
+.colorMenu{
+    width: 100px;
+    text-decoration: none; /* 밑줄 없애기 */
+    color: inherit; /* 링크 색상을 텍스트와 동일하게 설정 */
+    color : #FF6813;
+    font-weight: 900;
+    font-size: 15px;
+  
+    margin-right:15px;
+    margin-top: 20px;
+}
+.buttons{
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    flex-wrap: nowrap;
+}
+.rightBin{
+    width: 20px;
+}
+.title {
+    width: 100%;
+    color: #FF6813;
+    font-size: 17px;
+    font-weight: bold;
+    margin-top: 80px;
+    margin-bottom: 20px;
+    padding-bottom: 13px;
+    
+    padding-right: 15px;
+
+    border-style: solid;
+    border-width: 0 0 0.025rem 0;
+
+    border-color: #DDDDDD;
+}
+.label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 14px;
+    color:#888
+}
+.input {
+    width: 100%;
+    height: 30px;
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 0px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 4px;
+    font-size: 15px;
+    color: #868686;
+}
+input:focus {
+    border-color: #000; /* 포커스가 맞춰졌을 때 테두리 색상 변경 */
+    outline: none; /* 기본 포커스 아웃라인 제거 */
+}
+input::placeholder{
+    color: #DDDDDD;
+    font-weight: 570;
+    font-size: 16px;
+}
+.formGroup {
+    margin-bottom: 25px;
+    position: 'relative';
+}
+.clearButton{
+    position: absolute;
+    top: 50%;
+    right: 0px;
+    transform: translateY(-50%);
+    cursor: pointer
+}
+.checkboxContainer{
+    display: flex;
+    margin-bottom: 13px;
+}
+.checkLabel {
+    display: block;
+    font-weight: bold;
+    font-size: 13px;
+    color:#888
+}
+.submitButton{
+    width: 365px;
+    padding: 15px;
+    background-color: #FF6813;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.linkContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.link{
+    margin-top: 20px;
+    font-size: 10px;
+    color: #868686;
+}
