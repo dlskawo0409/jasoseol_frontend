@@ -12,8 +12,6 @@ html, body {
     flex-direction: column;
     justify-content: center;
     background-color: #Ffff;
-    margin-top:50px;
-
 }
 .TopBar{
     height: 50px;
@@ -27,7 +25,7 @@ html, body {
     border-right-width: 0px;
     border-bottom-width: 1px;
     border-bottom-color: #E6E6E6;
-    position: fixed;
+    /* position: fixed; */
     top: 0;
     width: 100%;
     background-color: #FFFFFF;
@@ -597,8 +595,8 @@ html, body {
     border-radius: 10px;
     box-shadow: 1px 1px 1px  #848484;
     overflow: hidden;
-    display: flex;
-    flex-direction: row;
+    /* display: flex; */
+    /* flex-direction: row; */
 }
 
 .compartment {
@@ -608,24 +606,13 @@ html, body {
     font-size: 40px;
     text-align: center;
   }
-  
-  /* 각 슬라이드가 변경되는 것을 시각적으로 확인하기 쉽도록 각 슬라이드별 색상 적용 */
-  .compartment:nth-child(1) {
+  /* .compartment:nth-child(1) {
     background-color: red;
   }
   .compartment:nth-child(2) {
-    background-color: yellowgreen;
-  }
-  .compartment:nth-child(3) {
-    background-color: blueviolet;
-  }
-  .compartment:nth-child(4) {
-    background-color: orange;
-  }
-  .compartment:nth-child(5) {
-    background-color: skyblue;
-  }
-
+    background-color: red;
+  } */
+  
 .nextButton{
     position: absolute;
     background-color: #FFF;
@@ -640,20 +627,72 @@ html, body {
     position: absolute;
     background-color: #FFF;
     margin-top: 102px;
-    left: 370px;
+    margin-left: -1130px;
     width: 40px;
     height: 70px;
     border-radius: 20px;
     border-style: none;
+    font-size: 5px;
 }
 .slideIndex {
     position: absolute;
     display: flex;
+    margin-top: -350px;
+    margin-left: 1080px;
+    height: 40px;
     gap: 8px;
-    margin-top: 365px;
     cursor: pointer;
-  }
+    border-radius: 30px;
+    background-color: #fff;
+
+}
+.slideIndexText{
+    display: flex;
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-right: 5px;
+}
+.slideIndexLeftText{
+    font-size: 15px;
+    margin-right: 5px;
+}
+.slideIndexRightText{
+    font-size: 15px;
+    color:#6E6E6E;
+ 
+}
+.plusImage{
+    /* padding-top:2px; */
+    margin-left: 20px;
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+
+}
   
-  .indexItem.active {
+.indexItem.active {
     color: blue; 
+}
+  .carouselContainer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+
+.modal {
+    z-index: 99;
+    background-color: rgba(0, 0, 0, 0.6);
+    animation: fadeOut 0.25s ease-out forwards;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal.open {
+    animation-name: fadeIn;
+  }
+  .modal.open > section {
+    animation-name: slideUp;
   }

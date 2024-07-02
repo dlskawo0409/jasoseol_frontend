@@ -15,12 +15,14 @@ import unselected from './Image/ic_checkbox_rounded_unselected.svg';
 import ic_info_purple from './Image/ic_info_purple.svg';
 import arrowRight from './Image/ic_arrow_right_linear.svg'
 import arrowLeft from './Image/ic_arrow_left_linear.svg'
+import add from './Image/ic_add.svg'
 import ExperienceForm from './ExperienceForm.js'
 import styles from './hompage.module.css';
 import React, { useState , useEffect  } from 'react';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-
+import Modal from 'react-modal';
+// import Modal from './Modal.js';
 
 function Page() {
     const location = useLocation();
@@ -45,7 +47,7 @@ function Page() {
     }
 
     return (
-        <div>
+        <div className={styles.mainContainer}>
             <TopBar selected="" login={login} setLogin={setLogin} setCareer={setCareer}/>
             <div className={styles.mainContainer}>
                 <RotateSlide />
@@ -140,12 +142,12 @@ function RedirectionLogoTo({ to }) {
 
 function ClickedMenu({ selected }) {
   const menuItems = [
-    { text: "채용공고", to: "/recruit" },
-    { text: "자기소개서", to: "/resume_list"},
-    { text: "이력서", to: "/spec_career_description"},
-    { text: "데이터랩", to: "/datalab"},
-    { text: "실무경험 채우기", to: "/practice"}, // 'to' 속성을 적절히 수정하세요
-    { text: "주니어 이직", to: "/career"}
+    { key: "recurit", text: "채용공고", to: "/recruit" },
+    { key: "resume_list", text: "자기소개서", to: "/resume_list"},
+    { key: "spec_career_description",text: "이력서", to: "/spec_career_description"},
+    { key: "datalab",text: "데이터랩", to: "/datalab"},
+    { key: "practice",text: "실무경험 채우기", to: "/practice"}, // 'to' 속성을 적절히 수정하세요
+    { key: "career",text: "주니어 이직", to: "/career"}
   ];
 
   return (
@@ -155,6 +157,7 @@ function ClickedMenu({ selected }) {
           text={item.text}
           to={item.to}
           clicked={selected === item.text}
+          key={item.key}
         />
       ))}
     </div>
@@ -214,8 +217,6 @@ function MenuIcon({login, setLogin, setModalOpen}){
 function OpenLoginModal({ onClose, modalMode, setModalMode, setLogin, setCareer}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = React.useState("");
-
-
     const [isHover, setIsHover] = useState(false);
 
     const emailRegEx = /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i;
@@ -339,6 +340,7 @@ function OpenLoginModal({ onClose, modalMode, setModalMode, setLogin, setCareer}
                         <span>혹시 기업회원이신가요?</span>
                      </Link>
                  </div>
+                 
             </div>
 
 
@@ -744,95 +746,217 @@ async function getCarrer(email){
         console.error('login fali Error: ', error);
     }
 }
-
-
-function RotateSlide() { //홈
+function RotateSlide() {
+    const [isMount, setMount] = useState(false);
+    const [trainCompartment, setTrainCompartment] = useState([]);
     const [isHover, setIsHover] = useState(false);
-    const trainCompartment = ['1 칸', '2 칸', '3 칸', '4 칸', '5 칸']; // 이미지 = 칸
-    const [curSlide, setCurSlide] = useState(0); //이미지 슬라이드에서 표출되는 이미지 번호
+    const [curSlide, setCurSlide] = useState(0);
+    const [nextSlide, setNextSlide] = useState(1); // 다음 슬라이드를 저장하는 상태
+    const [isFading, setIsFading] = useState(false); // 페이드 인/아웃 상태를 관리하는 상태 변수
+    const [openImageModal, setImageModal] = useState(false);
 
-    const FIRST_SLIDE_INDEX = 0; // 이미지 슬라이드의 시작 번호
-    const LAST_SLIDE_INDEX = trainCompartment.length - 1; // 이미지 슬라이드의 끝 번호
-    const MOVE_SLIDE_INDEX = 1; // 이미지 슬라이드 이동 값
+    const trainCompartmentData = useMainImages();
+    const FIRST_SLIDE_INDEX = 0;
+    const LAST_SLIDE_INDEX = trainCompartment.length - 1;
+    const MOVE_SLIDE_INDEX = 1;
 
-    const moveToSlide = (value) => {
-        if (value === 'next') {
-          // 슬라이드 끝점에 도달했을 때 curSlide의 값을 바꿔 처음으로 돌아가게 한다.
-          setCurSlide((prevState) =>
-            prevState < LAST_SLIDE_INDEX
-              ? prevState + MOVE_SLIDE_INDEX
-              : FIRST_SLIDE_INDEX
-          );
+    useEffect(() => {
+        if (!isMount && trainCompartmentData.length > 0) {
+            setTrainCompartment(trainCompartmentData);
+            setMount(true);
         }
-        if (value === 'prev') {
-          // 슬라이드 시작점에 도달했을 때 curSlide의 값을 바꿔 마지막으로 돌아가게 한다.
-          setCurSlide((prevState) =>
-            prevState > FIRST_SLIDE_INDEX
-              ? prevState - MOVE_SLIDE_INDEX
-              : LAST_SLIDE_INDEX
-          );
-        }
-      };
-
-    //Interval ID를 저장할 변수
-    const [intervalId, setIntervalId] = useState(null);
+    }, [isMount, trainCompartmentData]);
 
     useEffect(() => {
         const id = setInterval(() => {
-            setCurSlide((prevState) =>
-                prevState < LAST_SLIDE_INDEX
-                    ? prevState + MOVE_SLIDE_INDEX
-                    : FIRST_SLIDE_INDEX
-            );
+            moveToSlide('next');
         }, 4000);
-        setIntervalId(id);  // 인터벌 ID를 상태로 저장하여 나중에 클리어할 수 있게 합니다.
-        
-        return () => clearInterval(id);  // 컴포넌트가 언마운트될 때 인터벌을 클리어합니다.
-    }, []);  // 빈 배열을 사용하여 컴포넌트가 처음 마운트될 때만 useEffect를 실행합니다.
-    
-    
-    return (
-        <div className={styles.slideContainer} >
-            <div className={styles.slideShow} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
-                {
-                trainCompartment.map((item, index) => (
-                    <div className={styles.compartment}
-                        key={index}
-                        style={{
-                            transform: `translateX(${-1200 * curSlide}px)`, // translateX를 이용하여 [이미지 = 칸]을 왼쪽으로 이동, 1100px는 show의 너비
-                            transition: 'all 0.4s ease-in-out', // 슬라이드 처럼 자연스럽게 넘어가기 위한 효과
-                        }}
-                    
-                    >
-                        {item}
-                    </div>
-                    ))
-                }
 
+        return () => clearInterval(id);
+    }, [trainCompartment]);
+
+
+    const moveToSlide = (value) => {
+        if (isFading) return; // 애니메이션 중일 때는 새로운 슬라이드 전환을 방지
+        setIsFading(true); // 페이드 아웃 시작
+
+        setNextSlide((prevSlide) => {
+            if (value === 'next') {
+                return prevSlide < LAST_SLIDE_INDEX
+                    ? prevSlide + MOVE_SLIDE_INDEX
+                    : FIRST_SLIDE_INDEX;
+            } else if (value === 'prev') {
+                return prevSlide > FIRST_SLIDE_INDEX
+                    ? prevSlide - MOVE_SLIDE_INDEX
+                    : LAST_SLIDE_INDEX;
+            }
+        });
+
+        setTimeout(() => {
+            setCurSlide((prevState) => {
+                if (value === 'next') {
+                    return prevState < LAST_SLIDE_INDEX
+                        ? prevState + MOVE_SLIDE_INDEX
+                        : FIRST_SLIDE_INDEX;
+                } else if (value === 'prev') {
+                    return prevState > FIRST_SLIDE_INDEX
+                        ? prevState - MOVE_SLIDE_INDEX
+                        : LAST_SLIDE_INDEX;
+                }
+            });
+            setIsFading(false); // 페이드 인 시작
+        }, 500); // 페이드 아웃 지속 시간과 동일하게 설정
+    };
+    const handleImageClick = () => {
+        setImageModal(true);
+      };
+    return (
+        <div className={styles.slideContainer}>
+            <div
+                className={styles.slideShow}
+                onMouseEnter={() => setIsHover(true)}
+                onMouseLeave={() => setIsHover(false)}
+            >
+                {trainCompartment.length > 0 && (
+                    <>
+                        <img
+                            src={trainCompartment[curSlide]}
+                            // src={localStorage.getItem("image "+curSlide)}
+                            alt={`Slide ${curSlide}`}
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                                opacity: isFading ? 0.3 : 1,
+                                transition: 'opacity 500ms ease-in-out',
+                                zIndex:'1',
+                            }}
+                        />
+                        <img
+                            src={trainCompartment[nextSlide]}
+                            // src={localStorage.getItem("image "+nextSlide)}
+                            alt={`Slide ${nextSlide}`}
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                                opacity: isFading ? 1 : 0.3,
+                                transition: 'opacity 500ms ease-in-out',
+                                zIndex:'2',
+                            }}
+                        />
+                    </>
+                )}
+                {!openImageModal &&
+                <div className={styles.slideIndex} onClick={handleImageClick}>
+                    <div className={styles.slideIndexText}>
+                        <div className ={styles.slideIndexLeftText}>
+                            {curSlide+1} 
+                        </div>
+                        <div className={styles.slideIndexRightText}>
+                            / {trainCompartment.length}
+                        </div>
+                        <img src={add} className={styles.plusImage} ></img>
+                    </div>
+                </div>}
+                <ImageModal openImageModal={openImageModal} setImageModal={setImageModal} />
             </div>
-            {isHover && 
-                <button className={styles.prevButton} onClick={() => moveToSlide('prev')} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
+            {isHover && (
+                <button
+                    className={styles.prevButton}
+                    onClick={() => moveToSlide('prev')}
+                    onMouseEnter={() => setIsHover(true)}
+                    onMouseLeave={() => setIsHover(false)}
+                >
                     <img src={arrowLeft} alt="arrowLeft" />
                 </button>
-            }
-
-            {isHover && 
-                <button className={styles.nextButton} onClick={() => moveToSlide('next')} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
-                    <img src={arrowRight} alt="arrowRight" />
+            )}
+            {isHover && (
+                <button
+                    className={styles.nextButton}
+                    onClick={() => moveToSlide('next')}
+                    onMouseEnter={() => setIsHover(true)}
+                    onMouseLeave={() => setIsHover(false)}
+                >
+                    <img src={arrowRight} alt="arrowRight"/>
                 </button>
-            }
+            )}
 
         </div>
-
     );
-    
 }
 
-// async function getMainImage(){
-//     try(
 
-//     )
-// }
+
+function useMainImages() {
+    const [imageUrls, setImageUrls] = useState([]);
+    const [images, setImages] = useState([]);
+    const BASE_URL = 'http://localhost:8080/api/image/';
+
+    useEffect(() => {
+        async function fetchImages() {
+            try {
+                const response = await fetch(`${BASE_URL}main`);
+                const data = await response.json();
+                const imageUrls = data.map((imageName) => `${BASE_URL}${imageName}`);
+                setImageUrls(imageUrls);
+
+                const fetchedImages = await Promise.all(imageUrls.map(url => fetchImage(url)));
+                setImages(fetchedImages);
+            } catch (error) {
+                console.error('Error fetching images:', error);
+            }
+        }
+        fetchImages();
+    }, []);
+    
+    return images;
+}
+
+async function fetchImage(imageUrl) {
+    const response = await fetch(`${imageUrl}`, {
+        method: 'GET',
+    });
+    const arrayBuffer = await response.arrayBuffer();
+    const blob = new Blob([arrayBuffer], { type: 'image/jpeg' });
+    return URL.createObjectURL(blob);
+}
+
+
+
+function ImageModal({ openImageModal, setImageModal }) {
+    const openModal = () => setImageModal(true);
+    const closeModal = () => setImageModal(false);
+    
+    return (
+        // <Modal
+        //     isOpen={openImageModal}
+        //     onRequestClose={closeModal}
+        //     contentLabel="Example Modal"
+        //     ariaHideApp={false}
+        //     overlayClassName="modalOverlay"
+        //     style={{
+        //         overlay: {
+        //             opacity: openImageModal ? 1 : 0.3,
+        //             transition: 'opacity 1000ms ease-in-out'
+                    
+        //         },
+        //         content: {
+        //             width: '1000px',
+        //             maringTop: '20px',
+        //             margin: 'auto' // 모달이 화면 가운데에 나타나도록 설정
+        //         }
+        //     }}
+        // >
+        //     <h2>Hello, I'm a Modal</h2>
+        //     <button onClick={closeModal}>Close</button>
+        // </Modal>
+        <Modal open={openModal} close={closeModal} header="Modal heading">
+            함수형 모달 팝업창입니다. 쉽게 만들 수 있어요. 같이 만들어봐요!
+        </Modal>
+    );
+}
+
+
+
 
 
 //async function login(){
