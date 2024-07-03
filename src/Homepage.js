@@ -754,7 +754,7 @@ function RotateSlide() {
     const [isFading, setIsFading] = useState(false); // 페이드 인/아웃 상태를 관리하는 상태 변수
     const [openImageModal, setImageModal] = useState(false);
 
-    const trainCompartmentData = useMainImages();
+    const [trainCompartmentData, redirectionUrls] = useMainImages();
     const FIRST_SLIDE_INDEX = 0;
     const LAST_SLIDE_INDEX = trainCompartment.length - 1;
     const MOVE_SLIDE_INDEX = 1;
@@ -828,7 +828,10 @@ function RotateSlide() {
                                 opacity: isFading ? 0.3 : 1,
                                 transition: 'opacity 500ms ease-in-out',
                                 zIndex:'1',
+                                cursor: 'pointer',
+                        
                             }}
+                            onClick={() => goToRedirectionImage(redirectionUrls[curSlide])}
                         />
                         <img
                             src={trainCompartment[nextSlide]}
@@ -887,6 +890,7 @@ function RotateSlide() {
 
 function useMainImages() {
     const [imageUrls, setImageUrls] = useState([]);
+    const [redirectionUrls , setRedirectionUrls] = useState([]);
     const [images, setImages] = useState([]);
     const BASE_URL = 'http://localhost:8080/api/image/';
 
@@ -894,10 +898,13 @@ function useMainImages() {
         async function fetchImages() {
             try {
                 const response = await fetch(`${BASE_URL}main`);
-                const data = await response.json();
-                const imageUrls = data.map((imageName) => `${BASE_URL}${imageName}`);
+                const jsonData = await response.json();
+                const imageUrls = jsonData.map(item => `${BASE_URL}${item.IMAGE_URL}`);
+                const redirectionUrls = jsonData.map(item => item.REDIRECTION_URL);
+            
                 setImageUrls(imageUrls);
-                console.log(imageUrls)
+                setRedirectionUrls(redirectionUrls);
+
                 const fetchedImages = await Promise.all(imageUrls.map(url => fetchImage(url)));
                 setImages(fetchedImages);
             } catch (error) {
@@ -906,8 +913,7 @@ function useMainImages() {
         }
         fetchImages();
     }, []);
-    
-    return images;
+    return [images, redirectionUrls];
 }
 
 async function fetchImage(imageUrl) {
@@ -918,7 +924,10 @@ async function fetchImage(imageUrl) {
     const blob = new Blob([arrayBuffer], { type: 'image/jpeg' });
     return URL.createObjectURL(blob);
 }
-
+const goToRedirectionImage = (url) => {
+    window.location.href = url;
+    // 또는 history.push(url); // 이 경우, URL이 동일한 도메인 내에 있어야 함
+  };
 
 
 function ImageModal({ openImageModal, setImageModal, trainCompartment }) {
