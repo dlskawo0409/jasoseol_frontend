@@ -22,7 +22,6 @@ import React, { useState , useEffect  } from 'react';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import Modal from 'react-modal';
-// import Modal from './Modal.js';
 
 function Page() {
     const location = useLocation();
@@ -857,7 +856,7 @@ function RotateSlide() {
                         <img src={add} className={styles.plusImage} ></img>
                     </div>
                 </div>}
-                <ImageModal openImageModal={openImageModal} setImageModal={setImageModal} />
+                <ImageModal openImageModal={openImageModal} setImageModal={setImageModal} trainCompartment={trainCompartment}/>
             </div>
             {isHover && (
                 <button
@@ -898,7 +897,7 @@ function useMainImages() {
                 const data = await response.json();
                 const imageUrls = data.map((imageName) => `${BASE_URL}${imageName}`);
                 setImageUrls(imageUrls);
-
+                console.log(imageUrls)
                 const fetchedImages = await Promise.all(imageUrls.map(url => fetchImage(url)));
                 setImages(fetchedImages);
             } catch (error) {
@@ -922,36 +921,41 @@ async function fetchImage(imageUrl) {
 
 
 
-function ImageModal({ openImageModal, setImageModal }) {
-    const openModal = () => setImageModal(true);
+function ImageModal({ openImageModal, setImageModal, trainCompartment }) {
     const closeModal = () => setImageModal(false);
     
     return (
-        // <Modal
-        //     isOpen={openImageModal}
-        //     onRequestClose={closeModal}
-        //     contentLabel="Example Modal"
-        //     ariaHideApp={false}
-        //     overlayClassName="modalOverlay"
-        //     style={{
-        //         overlay: {
-        //             opacity: openImageModal ? 1 : 0.3,
-        //             transition: 'opacity 1000ms ease-in-out'
+        <div>
+        {openImageModal && (               
+            <div style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    zIndex: 20,
+                }}// 모달의 배경 스타일
+            onClick={closeModal} // 오버레이 클릭 시 모달 닫기
+            >
+                <div className={styles.imageModal}>
+                    <div className={styles.imageModalText}>
+                        혜택/공고
+                        <img src ={icClose} alt="ic_close" onClick={closeModal}></img>
+                    </div>
+                    {trainCompartment.map(item =>(
+                        <img src={item} className={styles.modalImage} alt="mainImage"/>
+                    ))
+                    }
                     
-        //         },
-        //         content: {
-        //             width: '1000px',
-        //             maringTop: '20px',
-        //             margin: 'auto' // 모달이 화면 가운데에 나타나도록 설정
-        //         }
-        //     }}
-        // >
-        //     <h2>Hello, I'm a Modal</h2>
-        //     <button onClick={closeModal}>Close</button>
-        // </Modal>
-        <Modal open={openModal} close={closeModal} header="Modal heading">
-            함수형 모달 팝업창입니다. 쉽게 만들 수 있어요. 같이 만들어봐요!
-        </Modal>
+                </div>
+
+            </div>
+        )}
+    </div>
     );
 }
 

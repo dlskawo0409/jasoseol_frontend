@@ -644,6 +644,9 @@ html, body {
     cursor: pointer;
     border-radius: 30px;
     background-color: #fff;
+    border: solid;
+    border-color: #BDBDBD;
+    border-width: 1px;
 
 }
 .slideIndexText{
@@ -690,9 +693,21 @@ html, body {
     align-items: center;
   }
 
-  .modal.open {
-    animation-name: fadeIn;
-  }
-  .modal.open > section {
-    animation-name: slideUp;
-  }
+.imageModal{
+    background-color: #FFF;
+    width: 1000px;
+    padding: 30px 20px 20px 20px;
+    border-radius: 10px;
+}
+.imageModalText{
+    display: flex;
+    justify-content:space-between;
+    font-size: 23px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+.modalImage{
+    margin-bottom: 10px;
+    border-radius: 10px;
+    width: 100%;
+}
