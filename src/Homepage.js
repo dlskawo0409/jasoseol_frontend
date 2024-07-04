@@ -507,7 +507,6 @@ function EmailJoinModal({ onClose, setModalMode, setLogin, setCareer }){
 
     
 
-
     return(
         <div className={styles.EmailJoinModal}>
            <div className={styles.EmailJoinModalTop}>
@@ -847,7 +846,7 @@ function RotateSlide() {
                         />
                     </>
                 )}
-                {!openImageModal &&
+                
                 <div className={styles.slideIndex} onClick={handleImageClick}>
                     <div className={styles.slideIndexText}>
                         <div className ={styles.slideIndexLeftText}>
@@ -858,7 +857,7 @@ function RotateSlide() {
                         </div>
                         <img src={add} className={styles.plusImage} ></img>
                     </div>
-                </div>}
+                </div>
                 <ImageModal openImageModal={openImageModal} setImageModal={setImageModal} trainCompartment={trainCompartment}/>
             </div>
             {isHover && (
@@ -930,47 +929,90 @@ const goToRedirectionImage = (url) => {
   };
 
 
-function ImageModal({ openImageModal, setImageModal, trainCompartment }) {
-    const closeModal = () => setImageModal(false);
+// function ImageModal({ openImageModal, setImageModal, trainCompartment }) {
+//     const closeModal = () => setImageModal(false);
+
     
+//     return (
+//         <div>
+//         {openImageModal && (               
+//             <div style={{
+//                     position: 'fixed',
+//                     top: 0,
+//                     left: 0,
+//                     width: '100%',
+//                     height: '100%',
+//                     backgroundColor: 'rgba(0, 0, 0, 0.5)',
+//                     display: 'flex',
+//                     justifyContent: 'center',
+//                     alignItems: 'center',
+//                     zIndex: 20,
+//                 }}// 모달의 배경 스타일
+//             onClick={closeModal} // 오버레이 클릭 시 모달 닫기
+//             >
+//                 <div className={styles.imageModal}>
+//                     <div className={styles.imageModalText}>
+//                         혜택/공고
+//                         <img src ={icClose} alt="ic_close" onClick={closeModal}></img>
+//                     </div>
+//                     {trainCompartment.map(item =>(
+//                         <img src={item} className={styles.modalImage} alt="mainImage"/>
+//                     ))
+//                     }
+                    
+//                 </div>
+
+//             </div>
+//         )}
+//     </div>
+//     );
+// }
+function ImageModal({ openImageModal, setImageModal, trainCompartment }) {
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+        if (openImageModal) {
+            setIsVisible(true);
+        } else {
+            setTimeout(() => setIsVisible(false), 300); // 애니메이션 시간 (300ms) 후에 isVisible 상태를 false로 설정
+        }
+    }, [openImageModal]);
+
+    const closeModal = () => setImageModal(false);
+
     return (
         <div>
-        {openImageModal && (               
-            <div style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    zIndex: 20,
-                }}// 모달의 배경 스타일
-            onClick={closeModal} // 오버레이 클릭 시 모달 닫기
-            >
-                <div className={styles.imageModal}>
-                    <div className={styles.imageModalText}>
-                        혜택/공고
-                        <img src ={icClose} alt="ic_close" onClick={closeModal}></img>
+            {isVisible && (               
+                <div 
+                    className={`${styles.imageModalContainer} ${openImageModal ? styles.fadeIn : ''}`}
+                    style={{
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        zIndex: 20,
+                    }} 
+                    onClick={closeModal} // Overlay 클릭 시 모달 닫기
+                >
+                    <div className={`${styles.imageModal} ${openImageModal ? '' : styles.fadeOut}`} onClick={e => e.stopPropagation()}>
+                        <div className={styles.imageModalText}>
+                            혜택/공고
+                            <img src={icClose} alt="ic_close" onClick={closeModal}></img>
+                        </div>
+                        {trainCompartment.map((item, index) => (
+                            <img key={index} src={item} className={styles.modalImage} alt="mainImage"/>
+                        ))}
                     </div>
-                    {trainCompartment.map(item =>(
-                        <img src={item} className={styles.modalImage} alt="mainImage"/>
-                    ))
-                    }
-                    
                 </div>
-
-            </div>
-        )}
-    </div>
+            )}
+        </div>
     );
 }
-
-
-
-
 
 //async function login(){
 //    try {

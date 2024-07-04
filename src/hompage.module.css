@@ -691,7 +691,6 @@ html, body {
 .modal {
     z-index: 99;
     background-color: rgba(0, 0, 0, 0.6);
-    animation: fadeOut 0.25s ease-out forwards;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -702,6 +701,8 @@ html, body {
     width: 1000px;
     padding: 30px 20px 20px 20px;
     border-radius: 10px;
+    animation: fadeIn 0.5s ease-in-out;
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 .imageModalText{
     display: flex;
@@ -714,4 +715,24 @@ html, body {
     margin-bottom: 10px;
     border-radius: 10px;
     width: 100%;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+.fadeOut {
+    opacity: 0;
+    transform: translateY(100%);
+}
+.fadeInAnimation{
+    animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+
+.imageModalContainer {
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
