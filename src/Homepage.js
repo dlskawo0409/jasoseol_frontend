@@ -2,6 +2,7 @@ import logo from './Image/logo_landscape.svg';
 import userIcon from './Image/ic_account.svg';
 import notificationIcon from './Image/ic_notification.svg';
 import chatIcon from './Image/ic_chat.svg';
+import chatPressIcon from './Image/ic_chat_pressed.svg'
 import icClose from './Image/ic_close.svg';
 import kakaoImage from './Image/img_logo_kakao.svg';
 import naverImage from './Image/img_logo_naver.svg';
@@ -16,6 +17,7 @@ import ic_info_purple from './Image/ic_info_purple.svg';
 import arrowRight from './Image/ic_arrow_right_linear.svg'
 import arrowLeft from './Image/ic_arrow_left_linear.svg'
 import add from './Image/ic_add.svg'
+import search_ic from './Image/magnifying_glass.svg';
 import ExperienceForm from './ExperienceForm.js'
 import styles from './hompage.module.css';
 import React, { useState , useEffect  } from 'react';
@@ -46,10 +48,11 @@ function Page() {
     }
 
     return (
-        <div className={styles.mainContainer}>
+        <div>
             <TopBar selected="" login={login} setLogin={setLogin} setCareer={setCareer}/>
             <div className={styles.mainContainer}>
-                <RotateSlide />
+                    <RotateSlide />
+                    <SearchDP/>
             </div>
         </div>
     );
@@ -120,6 +123,9 @@ function TopBar({selected, login, setLogin, setCareer}){
                     <div className ={styles.bin}></div>
                     <div className ={styles.icons}>
                         <MenuIcon login={login} setLogin={setLogin} setModalOpen={setModalOpen} />
+                        {/* {selected == 'recurit' && 
+
+                        } */}
                     </div>
                 </div>
             </nav>
@@ -858,7 +864,7 @@ function RotateSlide() {
                         <img src={add} className={styles.plusImage} ></img>
                     </div>
                 </div>
-                <ImageModal openImageModal={openImageModal} setImageModal={setImageModal} trainCompartment={trainCompartment}/>
+                <ImageModal openImageModal={openImageModal} setImageModal={setImageModal} trainCompartment={trainCompartment} redirectionUrls={redirectionUrls}/>
             </div>
             {isHover && (
                 <button
@@ -967,7 +973,7 @@ const goToRedirectionImage = (url) => {
 //     </div>
 //     );
 // }
-function ImageModal({ openImageModal, setImageModal, trainCompartment }) {
+function ImageModal({ openImageModal, setImageModal, trainCompartment , redirectionUrls}) {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -1004,8 +1010,9 @@ function ImageModal({ openImageModal, setImageModal, trainCompartment }) {
                             혜택/공고
                             <img src={icClose} alt="ic_close" onClick={closeModal}></img>
                         </div>
+
                         {trainCompartment.map((item, index) => (
-                            <img key={index} src={item} className={styles.modalImage} alt="mainImage"/>
+                            <img key={index} src={item} className={styles.modalImage} alt="mainImage"onClick={() => goToRedirectionImage(redirectionUrls[index])}/>
                         ))}
                     </div>
                 </div>
@@ -1014,27 +1021,40 @@ function ImageModal({ openImageModal, setImageModal, trainCompartment }) {
     );
 }
 
-//async function login(){
-//    try {
-//        const response = await fetch('http://localhost:8080/api/join', {
-//        method: 'POST', // 로그인은 보통 POST 요청을 사용
-//        headers: {
-//            'Content-Type': 'application/json',
-//
-//            },
-//            body: JSON.stringify({
-//                email: email,
-//                password: password,
-//                marketing: marketing,
-//                }),
-//            });
-//        if(!response.ok){
-//            throw new Error('Network response was not ok');
-//        }
-//
-//
-//    }
-//}
 
+
+
+function SearchDP(){
+    const [searchText, setSearchText] = useState('');
+    const changeValue = (event) => {
+        setSearchText(event.target.value);
+    }
+    return(
+        <div className={styles.searchDPContainer}>
+            <div className={styles.slideContainer}>
+                <div className={styles.searchContainer}>
+                    <img src ={search_ic} alt='search_icon'></img>
+                    <form>
+                        <input style={{border:'none', marginLeft:'20px', width:'500px', height:'20px',fontSize:'20px'}}type="text" value={searchText} placeholder='채용 공고를 찾아보세요' onChange={changeValue} ></input>
+                    </form>
+                </div>
+
+            </div>
+            <div className={styles.slideContainer}>
+                {searchText !== '' && 
+                        <div className={styles.resultOfSearchContainer}>
+                            검색 결과를 표시하는 컨테이너
+                        </div>
+                    }
+            </div>
+        </div>
+    );
+}
+
+// async function getResultOfSearch(text){
+//     const response = await fetch(`${imageUrl}`, {
+//         method: 'GET',
+//     });
+// }
 
 export   {Page, TopBar};

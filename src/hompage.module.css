@@ -736,3 +736,28 @@ html, body {
 .imageModalContainer {
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
+.searchContainer{
+    margin-top: 30px;
+    width:1200px; 
+    display : flex;
+    border: solid;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    padding-bottom: 20px;
+    
+}
+.resultOfSearchContainer{
+    width: 100%;
+    height: 25px;
+    z-index: 5;
+    display: inline;
+    padding-top: 5px;
+
+
+}
+.searchDPContainer{
+    display: flex;
+    flex-direction: column;
+
+}
