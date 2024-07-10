@@ -23,13 +23,12 @@ import styles from './hompage.module.css';
 import React, { useState , useEffect  } from 'react';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import Modal from 'react-modal';
 
 function Page() {
     const location = useLocation();
     const [login, setLogin] = useState(false);
     const [career, setCareer] = useState(false);
-  
+
     useEffect(() => {
       if (location.state) {
         if (location.state.login !== undefined) {
@@ -62,14 +61,18 @@ function Page() {
 
 
 
-function TopBar({selected, login, setLogin, setCareer}){
+function TopBar({selected, login, setLogin, setCareer, chatOpen, setChatOpen}){
     const [isModalOpen, setModalOpen] = useState(false);
     const [modalMode, setModalMode] = useState(null);
     const [isClosing, setIsClosing] = useState(false);
+   
 
     // 모달 닫기 함수 수정
     const closeModal = () => {setModalMode(""); setModalOpen(false);};
     const openModal = () => setModalOpen(true);
+    const openChat = () => {setChatOpen(true)};
+    const closeChat = () => {setChatOpen(false)};
+
 
     // 애니메이션 종료 후 처리
     useEffect(() => {
@@ -105,8 +108,6 @@ function TopBar({selected, login, setLogin, setCareer}){
                     </div>
                 </div>
             )}
-
-            <nav>
                 <div className = {styles.TopBar}>
                     <div className = {styles.Items}>
 
@@ -123,12 +124,21 @@ function TopBar({selected, login, setLogin, setCareer}){
                     <div className ={styles.bin}></div>
                     <div className ={styles.icons}>
                         <MenuIcon login={login} setLogin={setLogin} setModalOpen={setModalOpen} />
-                        {/* {selected == 'recurit' && 
+                        {selected === '채용공고' && chatOpen === false && (
+                            <div className={styles.chatButtonContainer} onClick={openChat}>
+                                <img src ={chatIcon} alt='채팅 아이콘' />
+                            </div>
+                            )
+                        }
+                        {selected === '채용공고' && chatOpen === true &&(
+                            <div className={styles.chatButtonContainer} onClick={closeChat}>
+                                <img src ={chatPressIcon} alt='채팅 눌린 아이콘' />
+                            </div>
 
-                        } */}
+                        )}
                     </div>
                 </div>
-            </nav>
+
 
 
         </div>
@@ -825,7 +835,6 @@ function RotateSlide() {
                     <>
                         <img
                             src={trainCompartment[curSlide]}
-                            // src={localStorage.getItem("image "+curSlide)}
                             alt={`Slide ${curSlide}`}
                             style={{
                                 width: '100%',
@@ -1035,15 +1044,16 @@ function SearchDP(){
                 <div className={styles.searchContainer}>
                     <img src ={search_ic} alt='search_icon'></img>
                     <form>
-                        <input style={{border:'none', marginLeft:'20px', width:'500px', height:'20px',fontSize:'20px'}}type="text" value={searchText} placeholder='채용 공고를 찾아보세요' onChange={changeValue} ></input>
+                        <input style={{border:'none', marginLeft:'20px', width:'500px', height:'20px',fontSize:'20px'}}
+                        type="text" value={searchText} placeholder='채용 공고를 찾아보세요' onChange={changeValue}  ></input>
                     </form>
                 </div>
 
             </div>
-            <div className={styles.slideContainer}>
+            <div className={styles.zResultContainer}>
                 {searchText !== '' && 
                         <div className={styles.resultOfSearchContainer}>
-                            검색 결과를 표시하는 컨테이너
+                            <DisplaySearchResult searchText={searchText}/>
                         </div>
                     }
             </div>
@@ -1051,10 +1061,48 @@ function SearchDP(){
     );
 }
 
-// async function getResultOfSearch(text){
-//     const response = await fetch(`${imageUrl}`, {
-//         method: 'GET',
-//     });
-// }
+function DisplaySearchResult({ searchText }) {
+    const [result, setResult] = useState([]); // 초기값을 빈 배열로 설정
+
+    useEffect(() => {
+        fetch(`http://localhost:8080/announcement/text?text=${searchText}`)
+        .then(response => response.json())
+        .then(data => (console.log(data), setResult(data)))
+        .catch(error => console.error('Error:', error));
+    }, [searchText]);
+
+    if (result.length === 0) {
+        return (
+            <div style={{ display:'flex', justifyContent:'center'}}>
+                <div className={styles.basicResultContainer}>
+                    <div className={styles.basicResult}>
+                        검색한 기업의 진행 중인 채용 공고가 없어요.
+                    </div>
+                    <div className={styles.basicResult}>
+                        다른 검색어로 찾아보세요.
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <div style={{display: 'flex'}}>
+            {result.map((item) =>(
+                <div className={styles.resultContainer} >
+                    <div style={{fontWeight:'500', paddingLeft: '20px'}}>
+                        {item.companyName}
+                    </div>
+                    <div style={{color:'#BDBDBD', paddingLeft: '10px'}}>
+                        {item.announcementTitle}
+                    </div>
+                </div>
+            ))}
+                
+        </div>
+    );
+}
+
+
 
 export   {Page, TopBar};

@@ -15,7 +15,7 @@ import NewPassword from './NewPassword.js';
 function App() {
 
     return (
-
+        <>
         <Router>
             <Routes>
                 <Route path="/" element={<Homepage />} />
@@ -31,7 +31,7 @@ function App() {
                 <Route path='/business_users/password/new' element={<NewPassword/>}/>
             </Routes>
         </Router>
-
+        </>
     );
 }
 

@@ -1,0 +1,145 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: #FFF; /* Apply the background color here */
+}
+.mainContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+.calendarContainer{
+    height: 100%;
+}
+.chatContainer{
+    width: 500px;
+    background-color: aquamarine;
+}
+.modalEnter{
+    animation: slideLeft 0.3s forwards;
+}
+.modalExit{
+    animation: slideRight 0.35s forwards;
+  }
+@keyframes slideLeft {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-500px);
+    }
+}
+
+@keyframes slideRight{
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(500px);
+    }
+}
+.topContainer{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border: solid;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 1px ;
+    border-color: #bdbdbd;
+    background-color: #fff;
+}
+.searchContainer{
+  width: auto;
+  margin-left: 50px;
+  border: solid;
+  border-radius: 7px;
+  border-color: #bdbdbd;
+  border-width: 1px;
+
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+}
+.searchInputTopText{
+  font-size: 11px;
+  margin-bottom: 5px;
+  color: #999;
+}
+.searchInputBottonText{
+  /* height: 20px; */
+  border: none;
+  font-size: 13px;
+  font-weight: 500;
+  color:#bdbdbd;
+}
+.searchInputBottonText::placeholder{
+  /* margin: 0px; */
+  font-size: 13px;
+  font-weight: 500;
+}
+.arrowDown{
+  margin-right: 10px;
+  width: 20px;
+}
+.oneSeletct{
+  display: flex;
+  flex-direction: row;
+
+}
+
+.gray{
+  height: 67px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: solid;
+  border-width: 1px;
+  border-radius: 7px;
+  z-index: 10;
+  border-color: #999;
+  background-color: #EEE;
+}
+.sky{
+  height: 67px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: solid;
+  border-width: 1px;
+  border-radius: 7px;
+  z-index: 10;
+  border-color: #6BA1CA;
+  background-color:#B4D8E7;
+}
+.line{
+  height: 30px;
+  border: solid;
+  border-color: #eee;
+  border-top: 0px;
+  border-right: 50pt;
+  border-bottom: 0px;
+}
+.selectContainer{
+  width: 650px;
+  margin-left: 50px;
+  border: solid;
+  border-radius: 7px;
+  border-color: #bdbdbd;
+  border-width: 1px;
+
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+}
